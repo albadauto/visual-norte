@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Painel · Visual Norte</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Quicksand:wght@400&display=swap"
+    />
+    <style>
+      :root {
+        --bg: #03050f;
+        --card: #080c24;
+        --navy: #050a33;
+        --ink: #f3f4f8;
+        --dim: #8b90a6;
+        --line: rgba(243, 244, 248, 0.14);
+        --warm: #e2b77f;
+        --bad: #ff8a8a;
+        --ok: #9be3b4;
+        --sans: "Jost", "Futura", "Century Gothic", system-ui, sans-serif;
+        color-scheme: dark;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--sans);
+        font-size: 15px;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+      button,
+      input,
+      select {
+        font: inherit;
+        color: inherit;
+      }
+      :focus-visible {
+        outline: 1px solid var(--ink);
+        outline-offset: 3px;
+      }
+      .wrap {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 0 max(20px, env(safe-area-inset-left)) 0
+          max(20px, env(safe-area-inset-right));
+      }
+      header {
+        border-bottom: 1px solid var(--line);
+      }
+      header .wrap {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        padding-block: 18px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: inherit;
+        text-decoration: none;
+      }
+      .brand svg {
+        width: 34px;
+      }
+      .brand span {
+        font-family: "Quicksand", var(--sans);
+        font-size: 19px;
+      }
+      .brand em {
+        font-style: normal;
+        font-size: 11px;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        color: var(--dim);
+        margin-left: 8px;
+      }
+      .who {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        color: var(--dim);
+        font-size: 13px;
+      }
+      .lbl {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--dim);
+      }
+      .btn {
+        background: var(--ink);
+        color: var(--bg);
+        border: 0;
+        padding: 10px 16px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+      .btn.ghost {
+        background: transparent;
+        color: var(--ink);
+        border: 1px solid rgba(243, 244, 248, 0.35);
+      }
+      .btn:disabled {
+        opacity: 0.4;
+        cursor: default;
+      }
+      a.btn {
+        text-decoration: none;
+        display: inline-block;
+      }
+      /* login */
+      .login {
+        min-height: 70vh;
+        display: grid;
+        place-items: center;
+        padding-block: 40px;
+      }
+      .login form {
+        width: min(380px, 100%);
+        display: grid;
+        gap: 18px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        padding: 30px;
+      }
+      .login h1 {
+        margin: 0;
+        font-weight: 300;
+        font-size: 28px;
+      }
+      .f {
+        display: grid;
+        gap: 6px;
+        min-width: 0;
+      }
+      input,
+      select {
+        background: transparent;
+        border: 0;
+        border-bottom: 1px solid rgba(243, 244, 248, 0.28);
+        padding: 9px 0;
+        width: 100%;
+        min-width: 0;
+        border-radius: 0;
+        font-size: 15px;
+      }
+      input:focus,
+      select:focus {
+        outline: none;
+        border-bottom-color: var(--ink);
+      }
+      select option {
+        background: var(--navy);
+      }
+      .msg {
+        font-size: 13px;
+        min-height: 1.2em;
+      }
+      .msg.bad {
+        color: var(--bad);
+      }
+      .msg.ok {
+        color: var(--ok);
+      }
+      /* dashboard */
+      main.dash {
+        padding-block: 34px 80px;
+        display: grid;
+        gap: 48px;
+      }
+      .intro {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+      .intro h1 {
+        margin: 0;
+        font-weight: 300;
+        font-size: clamp(28px, 4vw, 44px);
+        line-height: 1.05;
+      }
+      .intro p {
+        color: var(--dim);
+        max-width: 60ch;
+        margin: 8px 0 0;
+      }
+      section h2 {
+        margin: 0 0 16px;
+        font-weight: 400;
+        font-size: 20px;
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+      }
+      section h2 small {
+        font-size: 13px;
+        color: var(--dim);
+        font-weight: 400;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 14px;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        display: grid;
+        grid-template-rows: auto 1fr;
+        min-width: 0;
+      }
+      .prev {
+        position: relative;
+        aspect-ratio: 16/9;
+        background: #000;
+        overflow: hidden;
+      }
+      .prev video,
+      .prev img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .prev .empty {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        text-align: center;
+        padding: 14px;
+        color: var(--dim);
+        font-size: 13px;
+        background: repeating-linear-gradient(
+          135deg,
+          #060a1e 0 12px,
+          #080d26 12px 24px
+        );
+      }
+      .prev .busy {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 3px;
+        background: var(--line);
+        overflow: hidden;
+      }
+      .prev .busy::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        width: 40%;
+        background: var(--warm);
+        animation: busy 1.1s ease-in-out infinite;
+      }
+      @keyframes busy {
+        from {
+          transform: translateX(-100%);
+        }
+        to {
+          transform: translateX(260%);
+        }
+      }
+      .body {
+        padding: 14px;
+        display: grid;
+        gap: 12px;
+        align-content: start;
+      }
+      .body .t {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        align-items: baseline;
+      }
+      .body .t b {
+        font-weight: 500;
+      }
+      .file {
+        font-size: 12px;
+        color: var(--dim);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .row {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .two {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 12px;
+      }
+      .note {
+        color: var(--dim);
+        font-size: 13px;
+        border-left: 2px solid var(--warm);
+        padding-left: 12px;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .prev .busy::after {
+          animation: none;
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <defs>
+        <symbol id="vn" viewBox="0 0 316 170">
+          <path
+            fill="currentColor"
+            d="M0 43H68Q78 43 85 50L133 104L102 143Q96 150 89 144Z"
+          />
+          <path
+            fill="currentColor"
+            d="M231 0H316L176 159Q168 168 157 168H99Q91 168 97 161Z"
+          />
+        </symbol>
+      </defs>
+    </svg>
+
+    <header>
+      <div class="wrap">
+        <a class="brand" href="../"
+          ><svg aria-hidden="true"><use href="#vn" /></svg
+          ><span>visual norte</span><em>Painel</em></a
+        >
+        <div class="who" id="who" hidden>
+          <span id="whoEmail"></span
+          ><a class="btn ghost" href="../" target="_blank" rel="noopener"
+            >Ver site</a
+          ><button class="btn ghost" id="logout" type="button">Sair</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="wrap login" id="loginView">
+      <form id="loginForm">
+        <p class="lbl">Acesso restrito</p>
+        <h1>Entrar no painel</h1>
+        <div class="f">
+          <label class="lbl" for="email">E-mail</label
+          ><input id="email" type="email" autocomplete="username" required />
+        </div>
+        <div class="f">
+          <label class="lbl" for="pass">Senha</label
+          ><input
+            id="pass"
+            type="password"
+            autocomplete="current-password"
+            required
+          />
+        </div>
+        <button class="btn" type="submit" id="loginBtn">Entrar</button>
+        <p class="msg" id="loginMsg" role="status"></p>
+      </form>
+    </div>
+
+    <main class="wrap dash" id="dash" hidden>
+      <div class="intro">
+        <div>
+          <p class="lbl">Mídia do site</p>
+          <h1>Vídeos e projetos</h1>
+          <p>
+            Cada alteração vai direto para o site. Arquivos de até 50 MB: para
+            os painéis, use trechos de 10 a 20 s em 1080p (MP4 H.264). O vídeo
+            completo vai no link do YouTube ou Vimeo.
+          </p>
+        </div>
+      </div>
+      <section>
+        <h2>
+          Showreel <small>faixa de cinema no meio do site, toca com som</small>
+        </h2>
+        <div class="grid" id="gReel"></div>
+      </section>
+      <section>
+        <h2>
+          Painéis da abertura
+          <small>loop sem som; o painel aberto fica colorido</small>
+        </h2>
+        <div class="grid" id="gPanels"></div>
+      </section>
+      <section>
+        <h2>
+          Projetos do portfólio
+          <small>toca ao passar o mouse; abre em tela cheia ao clicar</small>
+        </h2>
+        <div class="grid" id="gWorks"></div>
+      </section>
+      <p class="note">
+        Espaços sem vídeo mostram a cena animada gerada pelo site.
+      </p>
+    </main>
+
+    <input
+      type="file"
+      id="file"
+      accept="video/mp4,video/webm,video/quicktime,image/jpeg,image/png,image/webp"
+      hidden
+    />
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+    <script src="../config.js"></script>
+    <script>
+      (() => {
+        const C = window.VN_CONFIG || {};
+        const BUCKET = C.bucket || "videos";
+        const $ = (s) => document.querySelector(s);
+        const CATS = ["Eventos", "Imobiliário", "Terrenos", "Rural", "Turismo"];
+        const SLOTS = [
+          { slot: "reel", group: "gReel", label: "Showreel" },
+          ...CATS.map((c) => ({
+            slot: "p-" + c,
+            group: "gPanels",
+            label: "Painel · " + c,
+          })),
+          ...[
+            ["Festival ao pôr do sol", "Eventos", "02:40"],
+            ["Torre residencial, hora azul", "Imobiliário", "01:30"],
+            ["Loteamento em encosta", "Terrenos", "01:10"],
+            ["Casamento no campo", "Eventos", "04:20"],
+            ["Pousada pé na areia", "Turismo", "01:00"],
+            ["Fazenda com pivôs", "Rural", "02:00"],
+            ["Condomínio fechado", "Imobiliário", "01:45"],
+            ["Gleba à venda", "Terrenos", "00:50"],
+          ].map((d, i) => ({
+            slot: "w" + (i + 1),
+            group: "gWorks",
+            label: "Projeto " + (i + 1),
+            work: true,
+            def: { title: d[0], category: d[1], duration: d[2] },
+          })),
+        ];
+        const MAX = 50 * 1024 * 1024;
+
+        if (
+          !window.supabase ||
+          !C.supabaseUrl ||
+          /SEU-PROJETO/.test(C.supabaseUrl)
+        ) {
+          $("#loginMsg").className = "msg bad";
+          $("#loginMsg").textContent =
+            "Configure o config.js com a URL e a chave do seu projeto Supabase.";
+          $("#loginBtn").disabled = true;
+          return;
+        }
+        const sb = window.supabase.createClient(
+          C.supabaseUrl,
+          C.supabaseAnonKey,
+        );
+        const pub = (path) =>
+          sb.storage.from(BUCKET).getPublicUrl(path).data.publicUrl;
+        let rows = {};
+
+        /* ---------- auth ---------- */
+        $("#loginForm").addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const m = $("#loginMsg");
+          m.className = "msg";
+          m.textContent = "Entrando…";
+          $("#loginBtn").disabled = true;
+          const { error } = await sb.auth.signInWithPassword({
+            email: $("#email").value.trim(),
+            password: $("#pass").value,
+          });
+          $("#loginBtn").disabled = false;
+          if (error) {
+            m.className = "msg bad";
+            m.textContent = /invalid/i.test(error.message)
+              ? "E-mail ou senha incorretos."
+              : "Não foi possível entrar: " + error.message;
+            return;
+          }
+          m.textContent = "";
+        });
+        $("#logout").addEventListener("click", () => sb.auth.signOut());
+        sb.auth.onAuthStateChange((_ev, session) => {
+          setTimeout(() => route(session), 0);
+        });
+
+        async function route(session) {
+          if (!session) {
+            $("#dash").hidden = true;
+            $("#who").hidden = true;
+            $("#loginView").hidden = false;
+            return;
+          }
+          const { data, error } = await sb
+            .from("admins")
+            .select("user_id")
+            .eq("user_id", session.user.id)
+            .maybeSingle();
+          if (error || !data) {
+            await sb.auth.signOut();
+            const m = $("#loginMsg");
+            m.className = "msg bad";
+            m.textContent = "Esta conta não tem acesso ao painel.";
+            return;
+          }
+          $("#whoEmail").textContent = session.user.email;
+          $("#who").hidden = false;
+          $("#loginView").hidden = true;
+          $("#dash").hidden = false;
+          await loadRows();
+          render();
+        }
+
+        /* ---------- data ---------- */
+        async function loadRows() {
+          const { data, error } = await sb.from("media_slots").select("*");
+          rows = {};
+          if (!error && data) data.forEach((r) => (rows[r.slot] = r));
+        }
+        async function save(slot, patch) {
+          const row = Object.assign({ slot }, rows[slot] || {}, patch, {
+            updated_at: new Date().toISOString(),
+          });
+          const { data, error } = await sb
+            .from("media_slots")
+            .upsert(row)
+            .select()
+            .single();
+          if (error) throw error;
+          rows[slot] = data;
+          return data;
+        }
+
+        /* ---------- UI ---------- */
+        function el(tag, props = {}, kids = []) {
+          const n = document.createElement(tag);
+          Object.entries(props).forEach(([k, v]) => {
+            if (k === "text") n.textContent = v;
+            else if (k in n) n[k] = v;
+            else n.setAttribute(k, v);
+          });
+          kids.forEach((k) => n.append(k));
+          return n;
+        }
+        function render() {
+          ["gReel", "gPanels", "gWorks"].forEach((g) =>
+            $("#" + g).replaceChildren(),
+          );
+          SLOTS.forEach((s) => $("#" + s.group).append(card(s)));
+        }
+        function preview(box, r) {
+          box.replaceChildren();
+          if (r && r.path) {
+            if (r.kind === "image")
+              box.append(el("img", { src: pub(r.path), alt: "" }));
+            else {
+              const v = el("video", {
+                src: pub(r.path) + "#t=0.1",
+                muted: true,
+                loop: true,
+                playsInline: true,
+                preload: "metadata",
+                controls: true,
+              });
+              box.append(v);
+            }
+          } else
+            box.append(
+              el("div", {
+                className: "empty",
+                text: "Sem vídeo. O site mostra a cena gerada.",
+              }),
+            );
+        }
+        function card(s) {
+          const r = rows[s.slot];
+          const prev = el("div", { className: "prev" });
+          preview(prev, r);
+          const fileTxt = el("div", {
+            className: "file",
+            text: r && r.file_name ? r.file_name : "Nenhum arquivo",
+          });
+          const msg = el("p", { className: "msg", role: "status" });
+          const up = el("button", {
+            className: "btn",
+            type: "button",
+            text: r && r.path ? "Trocar vídeo" : "Enviar vídeo",
+          });
+          const rm = el("button", {
+            className: "btn ghost",
+            type: "button",
+            text: "Remover",
+            disabled: !(r && r.path),
+          });
+          const body = el("div", { className: "body" }, [
+            el("div", { className: "t" }, [el("b", { text: s.label })]),
+            fileTxt,
+            el("div", { className: "row" }, [up, rm]),
+          ]);
+          const c = el("article", { className: "card" }, [prev, body]);
+          const setMsg = (t, k = "") => {
+            msg.className = "msg " + k;
+            msg.textContent = t;
+          };
+
+          up.addEventListener("click", () =>
+            pick(async (f) => {
+              if (f.size > MAX) {
+                setMsg(
+                  `O arquivo tem ${(f.size / 1048576).toFixed(1)} MB. O limite é 50 MB.`,
+                  "bad",
+                );
+                return;
+              }
+              up.disabled = rm.disabled = true;
+              const busy = el("div", { className: "busy" });
+              prev.append(busy);
+              setMsg(`Enviando ${(f.size / 1048576).toFixed(1)} MB…`);
+              const ext = (f.name.match(/\.[a-z0-9]+$/i) || [
+                ".mp4",
+              ])[0].toLowerCase();
+              const path = `${s.slot}/${Date.now()}${ext}`;
+              const type =
+                f.type ||
+                { ".webm": "video/webm", ".mov": "video/quicktime" }[ext] ||
+                "video/mp4";
+              const old = rows[s.slot] && rows[s.slot].path;
+              try {
+                const { error } = await sb.storage
+                  .from(BUCKET)
+                  .upload(path, f, {
+                    contentType: type,
+                    cacheControl: "31536000",
+                    upsert: false,
+                  });
+                if (error) throw error;
+                const nr = await save(s.slot, {
+                  path,
+                  kind: type.startsWith("image/") ? "image" : "video",
+                  file_name: f.name,
+                });
+                if (old && old !== path) sb.storage.from(BUCKET).remove([old]);
+                preview(prev, nr);
+                fileTxt.textContent = f.name;
+                up.textContent = "Trocar vídeo";
+                setMsg("Publicado no site.", "ok");
+              } catch (err) {
+                busy.remove();
+                setMsg(friendly(err), "bad");
+              }
+              up.disabled = false;
+              rm.disabled = !(rows[s.slot] && rows[s.slot].path);
+            }),
+          );
+
+          rm.addEventListener("click", async () => {
+            if (rm.dataset.armed !== "1") {
+              rm.dataset.armed = "1";
+              rm.textContent = "Confirmar remoção";
+              setMsg("Clique de novo para remover este vídeo do site.");
+              return;
+            }
+            rm.dataset.armed = "";
+            rm.textContent = "Remover";
+            rm.disabled = true;
+            const old = rows[s.slot] && rows[s.slot].path;
+            try {
+              await save(s.slot, { path: null, kind: null, file_name: null });
+              if (old) await sb.storage.from(BUCKET).remove([old]);
+              preview(prev, null);
+              fileTxt.textContent = "Nenhum arquivo";
+              up.textContent = "Enviar vídeo";
+              setMsg("Removido. O site volta a mostrar a cena gerada.", "ok");
+            } catch (err) {
+              rm.disabled = false;
+              setMsg(friendly(err), "bad");
+            }
+          });
+
+          if (s.work) {
+            const v = (k) => (r && r[k]) || "";
+            const title = el("input", {
+              id: s.slot + "-title",
+              value: v("title") || s.def.title,
+            });
+            const cat = el("select", { id: s.slot + "-cat" });
+            CATS.forEach((cn) =>
+              cat.append(el("option", { value: cn, text: cn })),
+            );
+            cat.value = v("category") || s.def.category;
+            const dur = el("input", {
+              id: s.slot + "-dur",
+              value: v("duration") || s.def.duration,
+              placeholder: "02:40",
+            });
+            const link = el("input", {
+              id: s.slot + "-link",
+              type: "url",
+              value: v("link"),
+              placeholder: "https://youtube.com/…",
+            });
+            const f = (lab, inp) =>
+              el("div", { className: "f" }, [
+                el("label", { className: "lbl", htmlFor: inp.id, text: lab }),
+                inp,
+              ]);
+            const saveBtn = el("button", {
+              className: "btn ghost",
+              type: "button",
+              text: "Salvar textos",
+            });
+            body.querySelector("b").textContent = s.label;
+            body.append(
+              f("Título", title),
+              el("div", { className: "two" }, [
+                f("Categoria", cat),
+                f("Duração", dur),
+              ]),
+              f("Link do vídeo completo", link),
+              saveBtn,
+            );
+            saveBtn.addEventListener("click", async () => {
+              const L = link.value.trim();
+              if (L && !/^https:\/\//i.test(L)) {
+                setMsg("O link precisa começar com https://", "bad");
+                return;
+              }
+              saveBtn.disabled = true;
+              setMsg("Salvando…");
+              try {
+                await save(s.slot, {
+                  title: title.value.trim() || null,
+                  category: cat.value,
+                  duration: dur.value.trim() || null,
+                  link: L || null,
+                });
+                setMsg("Textos publicados.", "ok");
+              } catch (err) {
+                setMsg(friendly(err), "bad");
+              }
+              saveBtn.disabled = false;
+            });
+          }
+          body.append(msg);
+          return c;
+        }
+        function pick(cb) {
+          const inp = $("#file");
+          inp.value = "";
+          inp.onchange = () => {
+            const f = inp.files && inp.files[0];
+            if (f) cb(f);
+          };
+          inp.click();
+        }
+        function friendly(err) {
+          const m = (err && (err.message || err.error || "")) + "";
+          if (/exceeded|too large|payload/i.test(m))
+            return "Arquivo grande demais para o limite do Supabase (50 MB).";
+          if (/mime|type/i.test(m))
+            return "Formato não aceito. Use MP4, WebM, MOV, JPG, PNG ou WebP.";
+          if (/row-level|security|policy|unauthorized|403/i.test(m))
+            return "Sem permissão. Confira se a sua conta está na tabela admins.";
+          return "Não foi possível concluir: " + m;
+        }
+      })();
+    </script>
+  </body>
+</html>
