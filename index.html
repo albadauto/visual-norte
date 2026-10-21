@@ -47,6 +47,17 @@
       * {
         box-sizing: border-box;
       }
+      [hidden] {
+        display: none !important;
+      }
+      html,
+      body {
+        margin: 0;
+      }
+      img,
+      video {
+        max-width: 100%;
+      }
       html {
         scroll-behavior: smooth;
       }
@@ -180,7 +191,8 @@
       }
       .brand svg {
         width: 38px;
-        height: auto;
+        height: 21px;
+        flex: none;
       }
       .brand span {
         font-family: var(--mark);
@@ -253,13 +265,117 @@
 
       /* HERO accordion */
       .hero {
-        padding-block: 8px 28px;
+        padding-block: clamp(28px, 5vw, 64px) 28px;
+      }
+      .hero-intro {
+        display: grid;
+        grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+        gap: clamp(28px, 5vw, 80px);
+        align-items: end;
+        margin-bottom: clamp(30px, 4vw, 52px);
+      }
+      .hero-intro h1 {
+        font-size: clamp(34px, 4.6vw, 68px);
+        line-height: 1.02;
+        letter-spacing: -0.025em;
+        font-weight: 300;
+      }
+      .hero-intro h1 b {
+        font-weight: 500;
+      }
+      .hero-intro h1 em {
+        font-style: normal;
+        color: var(--warm);
+      }
+      .hero-intro .lead {
+        color: #c4c8d8;
+        font-size: clamp(15px, 1.2vw, 17px);
+        max-width: 44ch;
+        margin-bottom: 22px;
+      }
+      .svc-chips {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        border-top: 1px solid var(--faint);
+      }
+      .svc-chips li {
+        border-bottom: 1px solid var(--faint);
+      }
+      .svc-chips button {
+        width: 100%;
+        background: none;
+        border: 0;
+        padding: 12px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 16px;
+        cursor: pointer;
+        text-align: left;
+        color: var(--dim);
+        transition:
+          color 0.3s,
+          padding 0.4s var(--ease);
+      }
+      .svc-chips button b {
+        font-size: 15px;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--ink);
+      }
+      .svc-chips button span {
+        font-size: 13px;
+      }
+      .svc-chips button:hover,
+      .svc-chips button[aria-current="true"] {
+        color: var(--ink);
+        padding-left: 10px;
+      }
+      .svc-chips button[aria-current="true"] b::before {
+        content: "";
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--warm);
+        margin-right: 10px;
+        vertical-align: 3px;
+      }
+      .hero-cta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 22px;
+        align-items: center;
+        margin-top: 26px;
+      }
+      .hero-cta .btn {
+        background: var(--ink);
+        color: var(--bg);
+        padding: 14px 24px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+      }
+      @media (max-width: 900px) {
+        .hero-intro {
+          grid-template-columns: 1fr;
+          gap: 26px;
+        }
+      }
+      @media (max-width: 520px) {
+        .svc-chips button span {
+          display: none;
+        }
       }
       .panels {
         display: flex;
         gap: 10px;
         align-items: center;
-        height: clamp(460px, 74vh, 820px);
+        height: clamp(440px, 66vh, 760px);
       }
       .pn {
         position: relative;
@@ -363,13 +479,13 @@
         transition-delay: 0.35s;
         pointer-events: auto;
       }
-      .pn h2 {
+      .pn h3 {
         font-size: clamp(17px, 1.6vw, 22px);
         letter-spacing: 0.14em;
         text-transform: uppercase;
         font-weight: 300;
       }
-      .pn h2 b {
+      .pn h3 b {
         font-weight: 600;
       }
       .pn p {
@@ -397,14 +513,11 @@
       }
       .hero-foot {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
         align-items: center;
         gap: 20px;
         margin-top: 22px;
         color: var(--dim);
-      }
-      .hero-foot p {
-        font-size: 14px;
       }
       .dots {
         display: flex;
@@ -461,9 +574,6 @@
           bottom: auto;
           top: 50%;
           margin-top: -9px;
-        }
-        .hero-foot p {
-          display: none;
         }
       }
 
@@ -1044,8 +1154,11 @@
         appearance: none;
         -webkit-appearance: none;
         cursor: pointer;
-        background-image:
-          linear-gradient(45deg, transparent 50%, var(--ink) 50%),
+        background-image: linear-gradient(
+            45deg,
+            transparent 50%,
+            var(--ink) 50%
+          ),
           linear-gradient(135deg, var(--ink) 50%, transparent 50%);
         background-position:
           calc(100% - 10px) 52%,
@@ -1313,8 +1426,60 @@
 
     <main id="topo">
       <!-- HERO -->
-      <section class="hero" aria-label="Destaques">
+      <section class="hero" id="inicio" aria-label="Destaques">
         <div class="wrap">
+          <div class="hero-intro">
+            <div>
+              <p class="label" style="color: var(--dim)">
+                Filmagem aérea com drone
+              </p>
+              <h1 style="margin-top: 18px">
+                Vídeos com drone para <b>eventos</b>, <b>imobiliárias</b> e
+                <b>terrenos</b>, <em>do voo à edição.</em>
+              </h1>
+              <div class="hero-cta">
+                <a class="btn" href="#contato">Pedir orçamento</a
+                ><a class="arrow" href="#showreel"
+                  >Assistir ao showreel <span>→</span></a
+                >
+              </div>
+            </div>
+            <div>
+              <p class="lead">
+                Captação aérea em 4K, edição, cor e trilha. Você recebe o vídeo
+                pronto para o site, o anúncio e as redes sociais.
+              </p>
+              <ul class="svc-chips" id="svcChips" aria-label="Serviços">
+                <li>
+                  <button type="button" data-i="0">
+                    <b>Eventos</b
+                    ><span>festas, shows, casamentos, corporativo</span>
+                  </button>
+                </li>
+                <li>
+                  <button type="button" data-i="1">
+                    <b>Imobiliárias</b
+                    ><span>lançamentos, casas, condomínios</span>
+                  </button>
+                </li>
+                <li>
+                  <button type="button" data-i="2">
+                    <b>Terrenos</b><span>lotes, glebas, loteamentos</span>
+                  </button>
+                </li>
+                <li>
+                  <button type="button" data-i="3">
+                    <b>Rural</b><span>fazendas, sítios, lavouras</span>
+                  </button>
+                </li>
+                <li>
+                  <button type="button" data-i="4">
+                    <b>Turismo</b><span>hotéis, pousadas, destinos</span>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
           <div class="panels" id="panels">
             <article
               class="pn grain on"
@@ -1330,7 +1495,7 @@
               </div>
               <span class="vl">Eventos</span>
               <div class="info">
-                <h2><b>Eventos</b> &amp; shows</h2>
+                <h3><b>Eventos</b> &amp; shows</h3>
                 <p>
                   Festivais, casamentos e corporativos filmados do alto, para
                   mostrar o tamanho do que aconteceu.
@@ -1354,7 +1519,7 @@
               </div>
               <span class="vl">Imobiliário</span>
               <div class="info">
-                <h2><b>Imobiliário</b> &amp; arquitetura</h2>
+                <h3><b>Imobiliário</b> &amp; arquitetura</h3>
                 <p>
                   Lançamentos e condomínios apresentados com a vista, o entorno
                   e a luz da hora azul.
@@ -1378,7 +1543,7 @@
               </div>
               <span class="vl">Terrenos</span>
               <div class="info">
-                <h2><b>Terrenos</b> &amp; loteamentos</h2>
+                <h3><b>Terrenos</b> &amp; loteamentos</h3>
                 <p>
                   Acesso, relevo, divisas e vizinhança em um só plano. O
                   comprador entende a área antes de visitar.
@@ -1402,7 +1567,7 @@
               </div>
               <span class="vl">Rural</span>
               <div class="info">
-                <h2><b>Rural</b> &amp; agro</h2>
+                <h3><b>Rural</b> &amp; agro</h3>
                 <p>
                   Fazendas, pivôs e lavouras registrados para venda,
                   apresentação e acompanhamento de safra.
@@ -1426,7 +1591,7 @@
               </div>
               <span class="vl">Turismo</span>
               <div class="info">
-                <h2><b>Turismo</b> &amp; hotelaria</h2>
+                <h3><b>Turismo</b> &amp; hotelaria</h3>
                 <p>
                   Pousadas, hotéis e destinos mostrados do jeito que fazem
                   alguém querer reservar.
@@ -1438,7 +1603,6 @@
             </article>
           </div>
           <div class="hero-foot">
-            <p>Filmagem aérea com drone para eventos, imóveis e terrenos.</p>
             <div
               class="dots"
               id="dots"
@@ -2130,6 +2294,7 @@ void main(){vec2 uv=(gl_FragCoord.xy-.5*r)/r.y;vec3 c;
         function activate(i) {
           if (i === active) return;
           active = i;
+          syncChips();
           setTimeout(syncPanels, 0);
           panels.forEach((p, k) => p.classList.toggle("on", k === i));
           [...dots.children].forEach((d, k) => {
@@ -2140,6 +2305,33 @@ void main(){vec2 uv=(gl_FragCoord.xy-.5*r)/r.y;vec3 c;
             }
           });
         }
+        const chips = [...document.querySelectorAll("#svcChips button")];
+        function syncChips() {
+          chips.forEach((c, k) =>
+            c.setAttribute("aria-current", k === active ? "true" : "false"),
+          );
+        }
+        syncChips();
+        chips.forEach((c) => {
+          const i = +c.dataset.i;
+          c.addEventListener("click", () => {
+            touched = true;
+            dots.classList.add("stop");
+            activate(i);
+            if (innerWidth < 760)
+              panels[i].scrollIntoView({
+                behavior: reduce ? "auto" : "smooth",
+                block: "center",
+              });
+          });
+          c.addEventListener("mouseenter", () => {
+            if (matchMedia("(hover:hover)").matches) {
+              touched = true;
+              dots.classList.add("stop");
+              activate(i);
+            }
+          });
+        });
         const pT = panels.map(() => Math.random() * 20);
         panels.forEach((p, i) =>
           paint(gHero, p.querySelector("canvas"), {
@@ -2217,9 +2409,14 @@ void main(){vec2 uv=(gl_FragCoord.xy-.5*r)/r.y;vec3 c;
             }),
           { rootMargin: "-45% 0px -50% 0px" },
         );
-        ["showreel", "portfolio", "servicos", "sobre", "contato"].forEach(
-          (id) => secObs.observe(document.getElementById(id)),
-        );
+        [
+          "inicio",
+          "showreel",
+          "portfolio",
+          "servicos",
+          "sobre",
+          "contato",
+        ].forEach((id) => secObs.observe(document.getElementById(id)));
 
         /* ---------- showreel ---------- */
         const scenes = [
@@ -2781,10 +2978,12 @@ void main(){vec2 uv=(gl_FragCoord.xy-.5*r)/r.y;vec3 c;
             const r = await fetch(
               `${C.supabaseUrl}/rest/v1/media_slots?select=*`,
               {
-                headers: {
-                  apikey: C.supabaseAnonKey,
-                  Authorization: "Bearer " + C.supabaseAnonKey,
-                },
+                headers: Object.assign(
+                  { apikey: C.supabaseAnonKey },
+                  /^eyJ/.test(C.supabaseAnonKey)
+                    ? { Authorization: "Bearer " + C.supabaseAnonKey }
+                    : {},
+                ),
               },
             );
             if (!r.ok) return;
