@@ -28,6 +28,9 @@
       * {
         box-sizing: border-box;
       }
+      [hidden] {
+        display: none !important;
+      }
       body {
         margin: 0;
         background: var(--bg);
@@ -549,6 +552,12 @@
             const m = $("#loginMsg");
             m.className = "msg bad";
             m.textContent = "Esta conta não tem acesso ao painel.";
+            return;
+          }
+          // Admin logado: vai direto para o site em modo edição.
+          // Para ver o painel em lista, abra /admin/?lista
+          if (!new URLSearchParams(location.search).has("lista")) {
+            location.replace("../#editar");
             return;
           }
           $("#whoEmail").textContent = session.user.email;
