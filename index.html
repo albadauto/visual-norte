@@ -768,10 +768,7 @@
         display: grid;
         gap: 18px;
         cursor: pointer;
-        background: none;
-        border: 0;
-        padding: 0;
-        text-align: left;
+        align-content: start;
       }
       .case .media-box {
         aspect-ratio: 16/10;
@@ -1290,6 +1287,122 @@
         padding: 10px;
       }
 
+      /* INLINE EDIT MODE (só aparece para admin logado) */
+      .ed {
+        position: absolute;
+        z-index: 20;
+        left: 12px;
+        top: 12px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        max-width: calc(100% - 24px);
+      }
+      .ed button {
+        background: var(--ink);
+        color: var(--bg);
+        border: 0;
+        padding: 8px 12px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        cursor: pointer;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+      }
+      .ed button.sec {
+        background: rgba(3, 5, 15, 0.85);
+        color: var(--ink);
+        border: 1px solid var(--line);
+      }
+      .ed button:disabled {
+        opacity: 0.5;
+        cursor: default;
+      }
+      .ed .st {
+        flex-basis: 100%;
+        font-size: 12px;
+        background: rgba(3, 5, 15, 0.85);
+        padding: 4px 8px;
+        justify-self: start;
+        width: max-content;
+        max-width: 100%;
+      }
+      .ed .st:empty {
+        display: none;
+      }
+      .ed-bar {
+        position: fixed;
+        z-index: 80;
+        left: calc(14px + env(safe-area-inset-left, 0px));
+        bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px 14px;
+        max-width: calc(100% - 110px);
+        background: #0b1040;
+        border: 1px solid var(--line);
+        padding: 10px 14px;
+        font-size: 13px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      }
+      .ed-bar b {
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--warm);
+      }
+      .ed-bar span {
+        color: var(--dim);
+        overflow-wrap: anywhere;
+      }
+      .ed-bar button {
+        background: none;
+        border: 1px solid var(--line);
+        padding: 6px 10px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+      body.ed-off .ed {
+        display: none;
+      }
+      .hero .ed {
+        top: calc(84px + env(safe-area-inset-top, 0px));
+        left: var(--gl);
+      }
+      .edm {
+        position: fixed;
+        inset: 0;
+        z-index: 90;
+        background: rgba(0, 0, 0, 0.75);
+        display: grid;
+        place-items: center;
+        padding: 20px var(--gr) 20px var(--gl);
+      }
+      .edm form {
+        width: min(520px, 100%);
+        background: var(--bg-2);
+        border: 1px solid var(--line);
+        padding: 26px;
+        display: grid;
+        gap: 18px;
+        max-height: 90vh;
+        overflow: auto;
+      }
+      .edm h3 {
+        font-size: 20px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      .edm .acts {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
       @media (prefers-reduced-motion: reduce) {
         html {
           scroll-behavior: auto;
@@ -2465,9 +2578,11 @@ void main(){vec2 uv=(gl_FragCoord.xy-.5*r)/r.y;vec3 c;
           casesEl.replaceChildren();
           DEF.forEach((_, i) => {
             const d = caseData(i);
-            const b = document.createElement("button");
-            b.type = "button";
+            const b = document.createElement("div");
+            b.setAttribute("role", "button");
+            b.tabIndex = 0;
             b.className = "case";
+            b.dataset.slot = d.slot;
             b.dataset.cat = d.cat;
             b.hidden = !(curF === "Todos" || curF === d.cat);
             const box = document.createElement("div");
@@ -2526,8 +2641,19 @@ void main(){vec2 uv=(gl_FragCoord.xy-.5*r)/r.y;vec3 c;
               const v = box.querySelector("video.media");
               if (v) v.pause();
             });
-            b.addEventListener("click", () => openLb(d, b));
+            b.addEventListener("click", (e) => {
+              if (e.target.closest(".ed")) return;
+              openLb(d, b);
+            });
+            b.addEventListener("keydown", (e) => {
+              if (e.target !== b) return;
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                openLb(d, b);
+              }
+            });
           });
+          if (window.VN_EDIT) window.VN_EDIT.decorate();
         }
         $$("#filters button").forEach((btn) =>
           btn.addEventListener("click", () => {
@@ -2644,36 +2770,353 @@ void main(){vec2 uv=(gl_FragCoord.xy-.5*r)/r.y;vec3 c;
               },
             );
             if (!r.ok) return;
-            const rows = await r.json();
-            const out = {};
-            rows.forEach((x) => {
-              out[x.slot] = {
-                path: x.path,
-                type: x.kind || "video",
-                link: x.link,
-                title: x.title,
-                cat: x.category,
-                dur: x.duration,
-                summary: x.summary,
-              };
-            });
-            media = out;
+            setRows(await r.json());
           } catch (e) {
             return;
           }
+          refreshAll();
+        }
+        function setRows(rows) {
+          const out = {};
+          rows.forEach((x) => {
+            out[x.slot] = {
+              path: x.path,
+              type: x.kind || "video",
+              link: x.link,
+              title: x.title,
+              cat: x.category,
+              dur: x.duration,
+              summary: x.summary,
+            };
+          });
+          media = out;
+        }
+        function refreshHero() {
           const hv = applyBox(heroBox);
+          heroVideo = !!hv;
           if (hv && hv.tagName === "VIDEO") {
-            heroVideo = true;
             $("#heroFade").classList.remove("on");
             if (!reduce) hv.play().catch(() => {});
             vio.observe(heroBox);
-          } else if (hv) {
-            heroVideo = true;
           }
+        }
+        function refreshSlot(slot) {
+          if (slot === "reel") refreshHero();
+          else if (slot.startsWith("p-")) {
+            const b = document.querySelector(`.svc-media[data-slot="${slot}"]`);
+            if (b) {
+              const v = applyBox(b);
+              if (v && v.play && !reduce) v.play().catch(() => {});
+            }
+          } else renderCases();
+        }
+        function refreshAll() {
+          refreshHero();
           $$(".svc-media").forEach(applyBox);
           renderCases();
         }
         loadMedia();
+
+        /* ---------- EDIÇÃO DIRETO NO SITE (só para admin logado) ---------- */
+        const REF = (() => {
+          try {
+            return new URL(C.supabaseUrl).hostname.split(".")[0];
+          } catch (e) {
+            return "";
+          }
+        })();
+        function loadScript(u) {
+          return new Promise((ok, no) => {
+            const s = document.createElement("script");
+            s.src = u;
+            s.onload = ok;
+            s.onerror = no;
+            document.head.append(s);
+          });
+        }
+        function notice(t) {
+          const n = document.createElement("div");
+          n.className = "ed-bar";
+          n.setAttribute("role", "status");
+          n.textContent = t;
+          document.body.append(n);
+          setTimeout(() => n.remove(), 8000);
+        }
+        async function initEdit() {
+          let sess = false;
+          try {
+            sess = !!localStorage.getItem(`sb-${REF}-auth-token`);
+          } catch (e) {}
+          const asked = location.hash === "#editar";
+          if (!sess && !asked) return;
+          if (!sess && asked) {
+            location.href = "admin/";
+            return;
+          }
+          try {
+            await loadScript(
+              "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js",
+            );
+          } catch (e) {
+            if (asked)
+              notice(
+                "Não foi possível carregar o modo edição. Recarregue a página.",
+              );
+            return;
+          }
+          const sb = window.supabase.createClient(
+            C.supabaseUrl,
+            C.supabaseAnonKey,
+          );
+          const {
+            data: { session },
+          } = await sb.auth.getSession();
+          if (!session) {
+            if (asked) location.href = "admin/";
+            return;
+          }
+          const { data: adm } = await sb
+            .from("admins")
+            .select("user_id")
+            .eq("user_id", session.user.id)
+            .maybeSingle();
+          if (!adm) {
+            if (asked)
+              notice(
+                "Esta conta não é admin. Confira a tabela admins no Supabase.",
+              );
+            return;
+          }
+          const BUCKET = C.bucket || "videos",
+            MAX = 50 * 1024 * 1024;
+          let rows = {};
+          async function pull() {
+            const { data } = await sb.from("media_slots").select("*");
+            rows = {};
+            (data || []).forEach((r) => (rows[r.slot] = r));
+            setRows(data || []);
+          }
+          async function save(slot, patch) {
+            const row = Object.assign({ slot }, rows[slot] || {}, patch, {
+              updated_at: new Date().toISOString(),
+            });
+            const { data, error } = await sb
+              .from("media_slots")
+              .upsert(row)
+              .select()
+              .single();
+            if (error) throw error;
+            rows[slot] = data;
+            setRows(Object.values(rows));
+            return data;
+          }
+          function friendly(err) {
+            const m = (err && (err.message || err.error || "")) + "";
+            if (/summary/i.test(m) && /column|schema/i.test(m))
+              return "Rode o supabase/migracao-v2.sql no Supabase.";
+            if (/exceeded|too large|payload/i.test(m))
+              return "Arquivo acima de 50 MB.";
+            if (/mime|type/i.test(m))
+              return "Formato não aceito (use MP4, WebM, MOV, JPG, PNG ou WebP).";
+            if (/row-level|security|policy|unauthorized|403/i.test(m))
+              return "Sem permissão de admin.";
+            return "Erro: " + m;
+          }
+          const file = document.createElement("input");
+          file.type = "file";
+          file.accept =
+            "video/mp4,video/webm,video/quicktime,image/jpeg,image/png,image/webp";
+          file.hidden = true;
+          document.body.append(file);
+          function pick() {
+            return new Promise((ok) => {
+              file.value = "";
+              file.onchange = () => ok(file.files && file.files[0]);
+              file.click();
+            });
+          }
+          const LABEL = { reel: "Vídeo do topo", w: "Projeto" };
+          function controls(box) {
+            const slot = box.dataset.slot;
+            if (!slot) return;
+            box.querySelectorAll(":scope > .ed").forEach((n) => n.remove());
+            const ed = document.createElement("div");
+            ed.className = "ed";
+            const up = document.createElement("button");
+            up.type = "button";
+            up.textContent = has(slot) ? "Trocar vídeo" : "Enviar vídeo";
+            const rm = document.createElement("button");
+            rm.type = "button";
+            rm.className = "sec";
+            rm.textContent = "Remover";
+            rm.disabled = !has(slot);
+            const st = document.createElement("span");
+            st.className = "st";
+            ed.append(up, rm);
+            if (/^w\d/.test(slot)) {
+              const tx = document.createElement("button");
+              tx.type = "button";
+              tx.className = "sec";
+              tx.textContent = "Editar textos";
+              tx.addEventListener("click", (e) => {
+                e.stopPropagation();
+                editTexts(slot);
+              });
+              ed.append(tx);
+            }
+            ed.append(st);
+            ["click", "pointerdown", "keydown", "pointerenter"].forEach((ev) =>
+              ed.addEventListener(ev, (e) => e.stopPropagation()),
+            );
+            up.addEventListener("click", async () => {
+              const f = await pick();
+              if (!f) return;
+              if (f.size > MAX) {
+                st.textContent = `${(f.size / 1048576).toFixed(1)} MB: o limite é 50 MB.`;
+                return;
+              }
+              up.disabled = rm.disabled = true;
+              st.textContent = `Enviando ${(f.size / 1048576).toFixed(1)} MB…`;
+              const ext = (f.name.match(/\.[a-z0-9]+$/i) || [
+                ".mp4",
+              ])[0].toLowerCase();
+              const path = `${slot}/${Date.now()}${ext}`;
+              const type =
+                f.type ||
+                { ".webm": "video/webm", ".mov": "video/quicktime" }[ext] ||
+                "video/mp4";
+              const old = rows[slot] && rows[slot].path;
+              try {
+                const { error } = await sb.storage
+                  .from(BUCKET)
+                  .upload(path, f, {
+                    contentType: type,
+                    cacheControl: "31536000",
+                    upsert: false,
+                  });
+                if (error) throw error;
+                await save(slot, {
+                  path,
+                  kind: type.startsWith("image/") ? "image" : "video",
+                  file_name: f.name,
+                });
+                if (old && old !== path) sb.storage.from(BUCKET).remove([old]);
+                refreshSlot(slot);
+                decorate();
+                toast("Vídeo publicado no site.");
+              } catch (err) {
+                st.textContent = friendly(err);
+                up.disabled = false;
+                rm.disabled = !has(slot);
+              }
+            });
+            rm.addEventListener("click", async () => {
+              if (rm.dataset.armed !== "1") {
+                rm.dataset.armed = "1";
+                rm.textContent = "Confirmar";
+                st.textContent = "Clique de novo para remover.";
+                return;
+              }
+              rm.disabled = true;
+              const old = rows[slot] && rows[slot].path;
+              try {
+                await save(slot, { path: null, kind: null, file_name: null });
+                if (old) await sb.storage.from(BUCKET).remove([old]);
+                refreshSlot(slot);
+                decorate();
+                toast("Vídeo removido.");
+              } catch (err) {
+                st.textContent = friendly(err);
+                rm.disabled = false;
+              }
+            });
+            box.append(ed);
+          }
+          function decorate() {
+            [heroBox, ...$$(".svc-media"), ...$$(".case .media-box")].forEach(
+              controls,
+            );
+          }
+          function editTexts(slot) {
+            const i = +slot.slice(1) - 1,
+              d = caseData(i);
+            const wrap = document.createElement("div");
+            wrap.className = "edm";
+            wrap.innerHTML = `<form><h3>Projeto ${i + 1}</h3>
+      <div class="f"><label for="eT">Título</label><input id="eT"></div>
+      <div class="two"><div class="f"><label for="eC">Categoria</label><select id="eC"><option>Eventos</option><option>Imobiliário</option><option>Terrenos</option><option>Rural</option><option>Turismo</option></select></div>
+      <div class="f"><label for="eD">Duração</label><input id="eD" placeholder="02:40"></div></div>
+      <div class="f"><label for="eS">Descrição curta</label><textarea id="eS" rows="3"></textarea></div>
+      <div class="f"><label for="eL">Link do vídeo completo (opcional)</label><input id="eL" type="url" placeholder="https://youtube.com/…"></div>
+      <p class="form-msg" id="eM" role="status"></p>
+      <div class="acts"><button class="btn" type="submit">Salvar</button><button class="btn ghost" type="button" id="eX">Cancelar</button></div></form>`;
+            document.body.append(wrap);
+            const q = (s) => wrap.querySelector(s);
+            q("#eT").value = d.title;
+            q("#eC").value = d.cat;
+            q("#eD").value = d.dur;
+            q("#eS").value = d.summary;
+            q("#eL").value = d.link;
+            const close = () => wrap.remove();
+            q("#eX").onclick = close;
+            wrap.addEventListener("click", (e) => {
+              if (e.target === wrap) close();
+            });
+            q("form").addEventListener("submit", async (e) => {
+              e.preventDefault();
+              const L = q("#eL").value.trim();
+              if (L && !/^https:\/\//i.test(L)) {
+                q("#eM").textContent = "O link precisa começar com https://";
+                return;
+              }
+              q("#eM").textContent = "Salvando…";
+              try {
+                await save(slot, {
+                  title: q("#eT").value.trim() || null,
+                  category: q("#eC").value,
+                  duration: q("#eD").value.trim() || null,
+                  summary: q("#eS").value.trim() || null,
+                  link: L || null,
+                });
+                renderCases();
+                close();
+                toast("Textos publicados.");
+              } catch (err) {
+                q("#eM").textContent = friendly(err);
+              }
+            });
+            q("#eT").focus();
+          }
+          const bar = document.createElement("div");
+          bar.className = "ed-bar";
+          bar.innerHTML =
+            '<b>Modo edição</b><span></span><button type="button" data-a="t">Ocultar controles</button><button type="button" data-a="o">Sair</button>';
+          bar.querySelector("span").textContent = session.user.email;
+          bar.querySelector('[data-a="t"]').onclick = (e) => {
+            const off = document.body.classList.toggle("ed-off");
+            e.target.textContent = off
+              ? "Mostrar controles"
+              : "Ocultar controles";
+          };
+          bar.querySelector('[data-a="o"]').onclick = async () => {
+            await sb.auth.signOut();
+            location.href = location.pathname;
+          };
+          document.body.append(bar);
+          function toast(t) {
+            const s = bar.querySelector("span");
+            s.textContent = t;
+            clearTimeout(toast.t);
+            toast.t = setTimeout(
+              () => (s.textContent = session.user.email),
+              2500,
+            );
+          }
+          window.VN_EDIT = { decorate };
+          await pull();
+          refreshAll();
+        }
+        initEdit();
 
         /* ---------- form -> WhatsApp ---------- */
         $("#form").addEventListener("submit", (e) => {

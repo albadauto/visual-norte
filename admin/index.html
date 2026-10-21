@@ -361,6 +361,7 @@
         >
         <div class="who" id="who" hidden>
           <span id="whoEmail"></span
+          ><a class="btn" href="../#editar">Editar no site</a
           ><a class="btn ghost" href="../" target="_blank" rel="noopener"
             >Ver site</a
           ><button class="btn ghost" id="logout" type="button">Sair</button>
@@ -508,6 +509,7 @@
         const pub = (path) =>
           sb.storage.from(BUCKET).getPublicUrl(path).data.publicUrl;
         let rows = {};
+        let justLoggedIn = false;
 
         /* ---------- auth ---------- */
         $("#loginForm").addEventListener("submit", async (e) => {
@@ -516,12 +518,14 @@
           m.className = "msg";
           m.textContent = "Entrando…";
           $("#loginBtn").disabled = true;
+          justLoggedIn = true;
           const { error } = await sb.auth.signInWithPassword({
             email: $("#email").value.trim(),
             password: $("#pass").value,
           });
           $("#loginBtn").disabled = false;
           if (error) {
+            justLoggedIn = false;
             m.className = "msg bad";
             m.textContent = /invalid/i.test(error.message)
               ? "E-mail ou senha incorretos."
@@ -556,7 +560,7 @@
           }
           // Admin logado: vai direto para o site em modo edição.
           // Para ver o painel em lista, abra /admin/?lista
-          if (!new URLSearchParams(location.search).has("lista")) {
+          if (justLoggedIn && !new URLSearchParams(location.search).has("lista")) {
             location.replace("../#editar");
             return;
           }
