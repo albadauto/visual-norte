@@ -20,8 +20,11 @@ create table if not exists public.media_slots (
   title      text,                                   -- título do projeto
   category   text check (category in ('Eventos','Imobiliário','Terrenos','Rural','Turismo')),
   duration   text,                                   -- ex.: 02:40
+  summary    text,                                   -- descrição curta do projeto
   updated_at timestamptz not null default now()
 );
+
+alter table public.media_slots add column if not exists summary text;
 
 alter table public.admins      enable row level security;
 alter table public.media_slots enable row level security;

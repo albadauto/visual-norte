@@ -6,41 +6,46 @@
       name="viewport"
       content="width=device-width,initial-scale=1,viewport-fit=cover"
     />
+    <title>Visual Norte · Filmagem com drone</title>
     <meta
       name="description"
-      content="Visual Norte: filmagem aérea com drone para eventos, imobiliárias, terrenos, fazendas e turismo."
+      content="Visual Norte: produtora de vídeo com drone para eventos, imobiliárias, terrenos, fazendas e turismo. Captação aérea, edição e entrega pronta para redes sociais."
     />
-    <meta property="og:title" content="Visual Norte" />
+    <meta property="og:title" content="Visual Norte · Filmagem com drone" />
     <meta
       property="og:description"
-      content="Filmagem aérea com drone para eventos, imóveis e terrenos."
+      content="Vídeos aéreos para eventos, imobiliárias e terrenos, do voo à edição."
     />
+    <meta name="theme-color" content="#03050f" />
     <link
       rel="icon"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-20 -60 356 290'%3E%3Crect x='-20' y='-60' width='356' height='290' rx='40' fill='%23050a33'/%3E%3Cpath fill='white' d='M0 43H68Q78 43 85 50L133 104L102 143Q96 150 89 144Z'/%3E%3Cpath fill='white' d='M231 0H316L176 159Q168 168 157 168H99Q91 168 97 161Z'/%3E%3C/svg%3E"
     />
-    <title>Visual Norte</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400&family=Quicksand:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Quicksand:wght@400;500&display=swap"
     />
     <style>
-      /* Layout: gallery of tall cinematic panels (CR7-style accordion) opening the page, then letterboxed showreel, edited portfolio grid, service list with cursor preview. Single committed dark world: near-black tinted with the logo navy. */
+      /* Layout: corporate-production landing (Ally-style) in the Visual Norte brand: full-bleed video hero with rotating word,
+   audience marquee, numbered service rows with media, case grid with video covers, about + process, CTA band, contact
+   that hands off to WhatsApp, floating WhatsApp button. Single dark world on the logo navy. */
       :root {
         --bg: #03050f;
-        --bg-2: #070a1c;
+        --bg-2: #070b1f;
         --navy: #050a33;
         --ink: #f3f4f8;
-        --dim: #8b90a6;
+        --dim: #9097b0;
         --faint: rgba(243, 244, 248, 0.12);
+        --line: rgba(243, 244, 248, 0.2);
         --warm: #e2b77f;
+        --wa: #25d366;
         --sans: "Jost", "Futura", "Century Gothic", system-ui, sans-serif;
         --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
         --mark: "Quicksand", "Jost", system-ui, sans-serif;
-        --gut-l: max(20px, env(safe-area-inset-left, 0px));
-        --gut-r: max(20px, env(safe-area-inset-right, 0px));
+        --gl: max(20px, env(safe-area-inset-left, 0px));
+        --gr: max(20px, env(safe-area-inset-right, 0px));
         --ease: cubic-bezier(0.7, 0, 0.2, 1);
         color-scheme: dark;
       }
@@ -54,12 +59,9 @@
       body {
         margin: 0;
       }
-      img,
-      video {
-        max-width: 100%;
-      }
       html {
         scroll-behavior: smooth;
+        -webkit-text-size-adjust: 100%;
       }
       body {
         background: var(--bg);
@@ -67,17 +69,14 @@
         font-family: var(--sans);
         font-size: 16px;
         line-height: 1.6;
-        font-weight: 400;
         -webkit-font-smoothing: antialiased;
         overflow-x: hidden;
       }
-      body::before {
-        content: "";
-        position: fixed;
-        inset: 0 0 auto;
-        height: env(safe-area-inset-top, 0px);
-        z-index: 10;
-        background: var(--bg);
+      img,
+      video,
+      canvas {
+        max-width: 100%;
+        display: block;
       }
       a {
         color: inherit;
@@ -85,52 +84,123 @@
       }
       h1,
       h2,
-      h3 {
-        margin: 0;
-        font-weight: 300;
-        text-wrap: balance;
-      }
+      h3,
       p {
         margin: 0;
       }
-      button {
+      h1,
+      h2,
+      h3 {
+        font-weight: 500;
+        text-wrap: balance;
+      }
+      button,
+      input,
+      select,
+      textarea {
         font: inherit;
         color: inherit;
       }
       :focus-visible {
-        outline: 1px solid var(--ink);
-        outline-offset: 4px;
+        outline: 2px solid var(--warm);
+        outline-offset: 3px;
       }
       .wrap {
-        max-width: 1440px;
+        max-width: 1360px;
         margin: 0 auto;
-        padding-left: var(--gut-l);
-        padding-right: var(--gut-r);
+        padding-left: var(--gl);
+        padding-right: var(--gr);
       }
-      .label {
+      .tag {
         font-size: 12px;
-        font-weight: 500;
-        letter-spacing: 0.32em;
+        font-weight: 600;
+        letter-spacing: 0.3em;
         text-transform: uppercase;
+        color: var(--dim);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .tag::before {
+        content: "";
+        width: 28px;
+        height: 1px;
+        background: var(--warm);
+      }
+      .h-sec {
+        font-size: clamp(34px, 5.4vw, 78px);
+        line-height: 0.98;
+        letter-spacing: -0.02em;
+        text-transform: uppercase;
+        font-weight: 500;
+      }
+      .h-sec em {
+        font-style: normal;
+        color: var(--warm);
       }
       .mono {
         font-family: var(--mono);
         font-size: 11px;
         letter-spacing: 0.06em;
       }
-      .arrow {
+
+      /* buttons */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        min-height: 48px;
+        padding: 0 26px;
+        border: 1px solid var(--ink);
+        background: var(--ink);
+        color: var(--bg);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition:
+          transform 0.3s var(--ease),
+          background 0.3s,
+          color 0.3s,
+          border-color 0.3s;
+        white-space: nowrap;
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+      .btn.ghost {
+        background: transparent;
+        color: var(--ink);
+        border-color: var(--line);
+      }
+      .btn.ghost:hover {
+        border-color: var(--ink);
+      }
+      .btn.wa {
+        background: var(--wa);
+        border-color: var(--wa);
+        color: #04210f;
+      }
+      .btn svg {
+        width: 18px;
+        height: 18px;
+        flex: none;
+      }
+      .link-arrow {
         display: inline-flex;
         align-items: center;
         gap: 10px;
-        font-size: 11px;
+        font-size: 12px;
         font-weight: 600;
-        letter-spacing: 0.28em;
+        letter-spacing: 0.22em;
         text-transform: uppercase;
       }
-      .arrow span {
+      .link-arrow span {
         transition: transform 0.35s var(--ease);
       }
-      .arrow:hover span {
+      .link-arrow:hover span {
         transform: translateX(6px);
       }
 
@@ -144,7 +214,7 @@
         position: absolute;
         inset: -60px;
         background-image: var(--grain, none);
-        opacity: 0.11;
+        opacity: 0.09;
         pointer-events: none;
         mix-blend-mode: overlay;
         animation: grain 0.7s steps(5) infinite;
@@ -154,35 +224,61 @@
         0% {
           transform: translate(0, 0);
         }
-        20% {
+        25% {
           transform: translate(-22px, 14px);
         }
-        40% {
+        50% {
           transform: translate(18px, -30px);
         }
-        60% {
+        75% {
           transform: translate(-30px, -8px);
         }
-        80% {
-          transform: translate(26px, 22px);
-        }
+      }
+
+      /* media containers */
+      .media-box {
+        position: relative;
+        overflow: hidden;
+        background: var(--bg-2);
+      }
+      .media-box > canvas,
+      .media-box > .media {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .media-box > canvas {
+        display: block;
       }
 
       /* NAV */
       .nav {
-        position: sticky;
-        top: env(safe-area-inset-top, 0px);
-        z-index: 30;
-        background: linear-gradient(var(--bg), rgba(3, 5, 15, 0.86));
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 40;
+        padding-top: env(safe-area-inset-top, 0px);
+        transition:
+          background 0.4s,
+          backdrop-filter 0.4s,
+          border-color 0.4s;
+        border-bottom: 1px solid transparent;
+      }
+      .nav.solid {
+        background: rgba(3, 5, 15, 0.82);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-bottom-color: var(--faint);
       }
       .nav .wrap {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 24px;
-        padding-block: 20px;
+        gap: 20px;
+        padding-block: 18px;
       }
       .brand {
         display: flex;
@@ -190,262 +286,279 @@
         gap: 12px;
       }
       .brand svg {
-        width: 38px;
-        height: 21px;
+        width: 40px;
+        height: 22px;
         flex: none;
       }
       .brand span {
         font-family: var(--mark);
-        font-size: 20px;
-        font-weight: 400;
-        letter-spacing: 0.01em;
+        font-size: 21px;
         line-height: 1;
       }
-      .nav ul {
+      .nav-r {
         display: flex;
-        gap: clamp(20px, 3vw, 46px);
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-      .nav ul a {
-        font-size: 12px;
-        font-weight: 600;
-        letter-spacing: 0.28em;
-        text-transform: uppercase;
-        color: var(--dim);
-        transition: color 0.3s;
-      }
-      .nav ul a:hover {
-        color: var(--ink);
-      }
-      .nav ul a.cur {
-        color: var(--ink);
-        position: relative;
-      }
-      .nav ul a.cur::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0.28em;
-        top: 50%;
-        height: 1px;
-        background: var(--warm);
-      }
-      .menu-btn {
-        display: none;
-        background: none;
-        border: 0;
-        padding: 8px 0;
-        font-size: 11px;
-        font-weight: 600;
-        letter-spacing: 0.28em;
-        cursor: pointer;
-      }
-      @media (max-width: 860px) {
-        .nav ul {
-          display: none;
-        }
-        .menu-btn {
-          display: block;
-        }
-        .nav.open ul {
-          display: flex;
-          flex-direction: column;
-          position: absolute;
-          top: 100%;
-          left: 0;
-          right: 0;
-          background: var(--bg);
-          padding: 20px var(--gut-r) 28px var(--gut-l);
-          gap: 22px;
-          border-bottom: 1px solid var(--faint);
-        }
-      }
-
-      /* HERO accordion */
-      .hero {
-        padding-block: clamp(28px, 5vw, 64px) 28px;
-      }
-      .hero-intro {
-        display: grid;
-        grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-        gap: clamp(28px, 5vw, 80px);
-        align-items: end;
-        margin-bottom: clamp(30px, 4vw, 52px);
-      }
-      .hero-intro h1 {
-        font-size: clamp(34px, 4.6vw, 68px);
-        line-height: 1.02;
-        letter-spacing: -0.025em;
-        font-weight: 300;
-      }
-      .hero-intro h1 b {
-        font-weight: 500;
-      }
-      .hero-intro h1 em {
-        font-style: normal;
-        color: var(--warm);
-      }
-      .hero-intro .lead {
-        color: #c4c8d8;
-        font-size: clamp(15px, 1.2vw, 17px);
-        max-width: 44ch;
-        margin-bottom: 22px;
-      }
-      .svc-chips {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: grid;
-        border-top: 1px solid var(--faint);
-      }
-      .svc-chips li {
-        border-bottom: 1px solid var(--faint);
-      }
-      .svc-chips button {
-        width: 100%;
-        background: none;
-        border: 0;
-        padding: 12px 0;
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-        gap: 16px;
-        cursor: pointer;
-        text-align: left;
-        color: var(--dim);
-        transition:
-          color 0.3s,
-          padding 0.4s var(--ease);
-      }
-      .svc-chips button b {
-        font-size: 15px;
-        font-weight: 500;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--ink);
-      }
-      .svc-chips button span {
-        font-size: 13px;
-      }
-      .svc-chips button:hover,
-      .svc-chips button[aria-current="true"] {
-        color: var(--ink);
-        padding-left: 10px;
-      }
-      .svc-chips button[aria-current="true"] b::before {
-        content: "";
-        display: inline-block;
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--warm);
-        margin-right: 10px;
-        vertical-align: 3px;
-      }
-      .hero-cta {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px 22px;
         align-items: center;
-        margin-top: 26px;
+        gap: clamp(14px, 2.4vw, 34px);
       }
-      .hero-cta .btn {
-        background: var(--ink);
-        color: var(--bg);
-        padding: 14px 24px;
-        font-size: 11px;
+      .nav-links {
+        display: flex;
+        gap: clamp(16px, 2.4vw, 34px);
+      }
+      .nav-links a {
+        font-size: 12px;
         font-weight: 600;
         letter-spacing: 0.24em;
         text-transform: uppercase;
+        color: rgba(243, 244, 248, 0.75);
+        transition: color 0.3s;
       }
-      @media (max-width: 900px) {
-        .hero-intro {
-          grid-template-columns: 1fr;
-          gap: 26px;
-        }
+      .nav-links a:hover {
+        color: var(--ink);
       }
-      @media (max-width: 520px) {
-        .svc-chips button span {
+      .nav .btn {
+        min-height: 42px;
+        padding: 0 18px;
+        font-size: 11px;
+      }
+      .menu-btn {
+        background: none;
+        border: 0;
+        cursor: pointer;
+        display: none;
+        align-items: center;
+        gap: 10px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.24em;
+        padding: 10px 0;
+      }
+      .menu-btn i {
+        display: grid;
+        gap: 5px;
+        width: 22px;
+      }
+      .menu-btn i::before,
+      .menu-btn i::after {
+        content: "";
+        height: 1.5px;
+        background: var(--ink);
+        display: block;
+      }
+      @media (max-width: 980px) {
+        .nav-links {
           display: none;
         }
+        .menu-btn {
+          display: flex;
+        }
       }
-      .panels {
+      @media (max-width: 560px) {
+        .nav .btn span {
+          display: none;
+        }
+        .nav .btn {
+          padding: 0 13px;
+        }
+      }
+
+      /* MENU OVERLAY */
+      .overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 60;
+        background: var(--navy);
         display: flex;
-        gap: 10px;
-        align-items: center;
-        height: clamp(440px, 66vh, 760px);
-      }
-      .pn {
-        position: relative;
-        flex: 1 1 0;
-        min-width: 0;
-        height: 70%;
-        overflow: hidden;
-        cursor: pointer;
-        background: var(--bg-2);
+        flex-direction: column;
+        padding: calc(18px + env(safe-area-inset-top, 0px)) var(--gr)
+          calc(28px + env(safe-area-inset-bottom, 0px)) var(--gl);
+        opacity: 0;
+        transform: translateY(-12px);
         transition:
-          flex 1s var(--ease),
-          height 1s var(--ease);
+          opacity 0.45s var(--ease),
+          transform 0.45s var(--ease);
       }
-      .pn.on {
-        flex: 3.3 1 0;
-        height: 100%;
+      .overlay.show {
+        opacity: 1;
+        transform: none;
       }
-      .pn canvas {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-        filter: grayscale(0.9) brightness(0.5) contrast(1.05);
-        transform: scale(1.04);
-        transition:
-          filter 1s var(--ease),
-          transform 1.6s var(--ease);
-      }
-      .pn.on canvas {
-        filter: none;
-        transform: scale(1);
-      }
-      .pn:not(.on):hover canvas {
-        filter: grayscale(0.4) brightness(0.7);
-      }
-      .pn::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        z-index: 1;
-        background: linear-gradient(
-          180deg,
-          rgba(3, 5, 15, 0.35) 0%,
-          transparent 28%,
-          transparent 52%,
-          rgba(3, 5, 15, 0.85) 100%
-        );
-        pointer-events: none;
-      }
-      .pn .meta {
-        position: absolute;
-        z-index: 3;
-        top: 22px;
-        left: 24px;
-        right: 24px;
+      .overlay-top {
         display: flex;
         justify-content: space-between;
-        color: rgba(243, 244, 248, 0.7);
-        opacity: 0;
-        transition: opacity 0.6s 0.3s;
+        align-items: center;
       }
-      .pn.on .meta {
+      .overlay nav {
+        margin-block: auto;
+        display: grid;
+        gap: 4px;
+      }
+      .overlay nav a {
+        font-size: clamp(34px, 9vw, 64px);
+        line-height: 1.15;
+        text-transform: uppercase;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+      }
+      .overlay nav a small {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--warm);
+        letter-spacing: 0.06em;
+      }
+      .overlay-foot {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 24px;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--dim);
+        font-size: 14px;
+      }
+      .close-btn {
+        background: none;
+        border: 0;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.24em;
+        padding: 10px 0;
+      }
+
+      /* HERO */
+      .hero {
+        position: relative;
+        min-height: min(100svh, 980px);
+        display: flex;
+        align-items: flex-end;
+        background: #000;
+      }
+      .hero .media-box {
+        position: absolute;
+        inset: 0;
+      }
+      .hero .shade {
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+        background: linear-gradient(
+            180deg,
+            rgba(3, 5, 15, 0.55) 0%,
+            rgba(3, 5, 15, 0.1) 30%,
+            rgba(3, 5, 15, 0.35) 60%,
+            rgba(3, 5, 15, 0.95) 100%
+          ),
+          linear-gradient(90deg, rgba(3, 5, 15, 0.6), transparent 70%);
+        pointer-events: none;
+      }
+      .hero-fade {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        background: #000;
+        opacity: 0;
+        transition: opacity 0.5s;
+        pointer-events: none;
+      }
+      .hero-fade.on {
         opacity: 1;
       }
-      .pn .meta i {
+      .hero-in {
+        position: relative;
+        z-index: 4;
+        width: 100%;
+        padding-top: 140px;
+        padding-bottom: clamp(36px, 6vw, 72px);
+      }
+      .hero h1 {
+        font-size: clamp(34px, 7.4vw, 118px);
+        line-height: 0.94;
+        letter-spacing: -0.03em;
+        text-transform: uppercase;
+        font-weight: 500;
+        max-width: 14ch;
+      }
+      .rot {
+        display: inline-grid;
+        vertical-align: bottom;
+        color: var(--warm);
+      }
+      .rot span {
+        grid-area: 1/1;
+        opacity: 0;
+        transform: translateY(40%);
+        transition:
+          opacity 0.6s var(--ease),
+          transform 0.6s var(--ease);
+        white-space: nowrap;
+      }
+      .rot span.on {
+        opacity: 1;
+        transform: none;
+      }
+      .rot span.out {
+        opacity: 0;
+        transform: translateY(-40%);
+      }
+      .hero-sub {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: end;
+        gap: 28px;
+        margin-top: clamp(26px, 3.4vw, 44px);
+      }
+      .hero-sub p {
+        max-width: 46ch;
+        color: #d3d7e6;
+        font-size: clamp(16px, 1.3vw, 19px);
+      }
+      .hero-ctas {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .hero-cats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 0;
+        margin-top: clamp(30px, 4vw, 54px);
+        border-top: 1px solid var(--line);
+        padding-top: 18px;
+      }
+      .hero-cats a {
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: rgba(243, 244, 248, 0.8);
+        padding-right: 28px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .hero-cats a:hover {
+        color: var(--ink);
+      }
+      .hero-cats a b {
+        font-family: var(--mono);
+        font-weight: 400;
+        color: var(--warm);
+        font-size: 11px;
+        letter-spacing: 0.04em;
+      }
+      .hero-rec {
+        position: absolute;
+        z-index: 4;
+        top: calc(96px + env(safe-area-inset-top, 0px));
+        right: var(--gr);
+        color: rgba(243, 244, 248, 0.75);
+      }
+      .hero-rec i {
         display: inline-block;
-        width: 6px;
-        height: 6px;
+        width: 7px;
+        height: 7px;
         border-radius: 50%;
         background: #ff4b4b;
         margin-right: 8px;
@@ -457,380 +570,184 @@
           visibility: hidden;
         }
       }
-      .pn .info {
-        position: absolute;
-        z-index: 3;
-        left: clamp(22px, 3vw, 40px);
-        right: clamp(22px, 3vw, 40px);
-        bottom: clamp(26px, 4vw, 48px);
-        display: grid;
-        gap: 14px;
-        max-width: 440px;
-        opacity: 0;
-        transform: translateY(14px);
-        transition:
-          opacity 0.6s,
-          transform 0.6s var(--ease);
-        pointer-events: none;
-      }
-      .pn.on .info {
-        opacity: 1;
-        transform: none;
-        transition-delay: 0.35s;
-        pointer-events: auto;
-      }
-      .pn h3 {
-        font-size: clamp(17px, 1.6vw, 22px);
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        font-weight: 300;
-      }
-      .pn h3 b {
-        font-weight: 600;
-      }
-      .pn p {
-        font-size: 15px;
-        color: #d5d8e4;
-        max-width: 38ch;
-      }
-      .pn .vl {
-        position: absolute;
-        z-index: 3;
-        left: 50%;
-        bottom: 26px;
-        transform: translateX(-50%) rotate(180deg);
-        writing-mode: vertical-rl;
-        font-size: 11px;
-        font-weight: 600;
-        letter-spacing: 0.3em;
-        text-transform: uppercase;
-        color: rgba(243, 244, 248, 0.8);
-        transition: opacity 0.4s;
-        white-space: nowrap;
-      }
-      .pn.on .vl {
-        opacity: 0;
-      }
-      .hero-foot {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        gap: 20px;
-        margin-top: 22px;
-        color: var(--dim);
-      }
-      .dots {
-        display: flex;
-        gap: 8px;
-      }
-      .dots button {
-        width: 28px;
-        height: 2px;
-        background: var(--faint);
-        border: 0;
-        padding: 0;
-        cursor: pointer;
-        position: relative;
-        overflow: hidden;
-      }
-      .dots button.on::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: var(--ink);
-        transform-origin: left;
-        animation: fill 7s linear forwards;
-      }
-      .dots.stop button.on::after {
-        animation: none;
-      }
-      @keyframes fill {
-        from {
-          transform: scaleX(0);
-        }
-        to {
-          transform: scaleX(1);
-        }
-      }
-      @media (max-width: 760px) {
-        .panels {
-          flex-direction: column;
-          height: auto;
-          gap: 8px;
-        }
-        .pn {
-          flex: none;
-          width: 100%;
-          height: 84px;
-        }
-        .pn.on {
-          flex: none;
-          height: min(470px, 72vh);
-        }
-        .pn .vl {
-          writing-mode: horizontal-tb;
-          transform: none;
-          left: 20px;
-          bottom: auto;
-          top: 50%;
-          margin-top: -9px;
-        }
-      }
-
-      /* sections */
-      .sec {
-        padding-block: clamp(90px, 12vw, 170px);
-      }
-      .sec-top {
-        display: flex;
-        justify-content: space-between;
-        align-items: end;
-        gap: 30px;
-        flex-wrap: wrap;
-        margin-bottom: clamp(36px, 5vw, 60px);
-      }
-      .sec-top h2 {
-        font-size: clamp(34px, 5.4vw, 80px);
-        line-height: 1;
-        letter-spacing: -0.02em;
-        margin-top: 18px;
-      }
-      .sec-top .label {
-        color: var(--dim);
-      }
-
-      /* about */
-      .about {
-        display: grid;
-        grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
-        gap: clamp(40px, 7vw, 120px);
-        align-items: end;
-      }
-      .about h2 {
-        font-size: clamp(38px, 6.4vw, 104px);
-        line-height: 0.98;
-        letter-spacing: -0.025em;
-      }
-      .about h2 em {
-        font-style: normal;
-        color: var(--warm);
-      }
-      .about-r {
-        display: grid;
-        gap: 22px;
-        color: #c4c8d8;
-        max-width: 46ch;
-      }
-      .facts {
-        margin-top: clamp(60px, 8vw, 110px);
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        border-top: 1px solid var(--faint);
-      }
-      .facts div {
-        padding: 24px 20px 0 0;
-        display: grid;
-        gap: 4px;
-      }
-      .facts b {
-        font-size: clamp(20px, 2vw, 28px);
-        font-weight: 300;
-      }
-      .facts span {
-        font-size: 13px;
-        color: var(--dim);
-      }
-      @media (max-width: 860px) {
-        .about {
-          grid-template-columns: 1fr;
-        }
-        .facts {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-          row-gap: 22px;
-        }
-      }
-
-      /* showreel */
-      .reel {
-        background: #000;
-      }
-      .reel-frame {
-        position: relative;
-        aspect-ratio: 2.39/1;
-        max-width: 100%;
-        background: #000;
-      }
-      .reel-frame canvas {
-        width: 100%;
-        height: 100%;
-        display: block;
-        object-fit: cover;
-      }
-      .reel-fade {
-        position: absolute;
-        inset: 0;
-        background: #000;
-        opacity: 0;
-        transition: opacity 0.45s;
-        pointer-events: none;
-        z-index: 1;
-      }
-      .reel-fade.on {
-        opacity: 1;
-      }
-      .reel-ui {
-        position: absolute;
-        inset: 0;
-        z-index: 3;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: clamp(14px, 2.4vw, 30px);
-      }
-      .reel-ui .row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 16px;
-      }
-      .reel-title {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        text-align: center;
-        z-index: 3;
-        pointer-events: none;
-      }
-      .reel-title p {
-        font-size: clamp(12px, 1.2vw, 14px);
-        letter-spacing: 0.42em;
-        text-transform: uppercase;
-        font-weight: 500;
-        transition: opacity 0.5s;
-      }
-      .snd {
-        background: none;
-        border: 1px solid rgba(243, 244, 248, 0.4);
-        border-radius: 999px;
-        padding: 9px 16px;
-        font-size: 10px;
-        font-weight: 600;
-        letter-spacing: 0.28em;
-        text-transform: uppercase;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        transition:
-          border-color 0.3s,
-          background 0.3s,
-          color 0.3s;
-      }
-      .snd:hover {
-        border-color: var(--ink);
-      }
-      .snd[aria-pressed="true"] {
-        background: var(--ink);
-        color: #000;
-      }
-      .bars {
-        display: flex;
-        gap: 2px;
-        align-items: end;
-        height: 10px;
-      }
-      .bars i {
-        width: 2px;
-        background: currentColor;
-        height: 30%;
-      }
-      .snd[aria-pressed="true"] .bars i {
-        animation: eq 0.9s ease-in-out infinite;
-      }
-      .bars i:nth-child(2) {
-        animation-delay: 0.2s !important;
-      }
-      .bars i:nth-child(3) {
-        animation-delay: 0.45s !important;
-      }
-      .bars i:nth-child(4) {
-        animation-delay: 0.1s !important;
-      }
-      @keyframes eq {
-        0%,
-        100% {
-          height: 25%;
-        }
-        50% {
-          height: 100%;
-        }
-      }
-      .chap {
-        display: flex;
-        gap: 6px;
-      }
-      .chap button {
-        background: none;
-        border: 0;
-        padding: 6px 0;
-        cursor: pointer;
-        width: clamp(22px, 4vw, 54px);
-      }
-      .chap button i {
-        display: block;
-        height: 2px;
-        background: rgba(243, 244, 248, 0.25);
-        position: relative;
-        overflow: hidden;
-      }
-      .chap button.on i::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: var(--ink);
-        transform-origin: left;
-        animation: fill 5s linear forwards;
-      }
-      .chap.paused button.on i::after {
-        animation-play-state: paused;
-      }
-      .reel-cap {
-        display: flex;
-        justify-content: space-between;
-        gap: 20px;
-        flex-wrap: wrap;
-        padding-block: 22px;
-        color: var(--dim);
-        font-size: 14px;
-      }
-      @media (max-width: 600px) {
-        .reel-frame {
-          aspect-ratio: 16/10;
-        }
-        .chap {
+      @media (max-width: 640px) {
+        .hero-rec {
           display: none;
         }
+        .hero-ctas {
+          width: 100%;
+        }
+        .hero-ctas .btn {
+          flex: 1 1 100%;
+        }
       }
 
-      /* portfolio */
+      /* MARQUEE */
+      .marq {
+        border-block: 1px solid var(--faint);
+        overflow: hidden;
+        background: var(--bg);
+      }
+      .marq-track {
+        display: flex;
+        width: max-content;
+        animation: marq 38s linear infinite;
+      }
+      .marq-track span {
+        display: flex;
+        align-items: center;
+        gap: 34px;
+        padding: 22px 34px 22px 0;
+        font-size: clamp(16px, 1.8vw, 24px);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        font-weight: 400;
+        color: rgba(243, 244, 248, 0.8);
+        white-space: nowrap;
+      }
+      .marq-track span::after {
+        content: "";
+        width: 8px;
+        height: 8px;
+        background: var(--warm);
+        transform: rotate(45deg);
+      }
+      @keyframes marq {
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* SECTIONS */
+      .sec {
+        padding-block: clamp(90px, 11vw, 160px);
+      }
+      .sec-head {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: end;
+        gap: 24px 40px;
+        margin-bottom: clamp(40px, 6vw, 80px);
+      }
+      .sec-head .tag {
+        margin-bottom: 18px;
+      }
+      .sec-head p {
+        color: var(--dim);
+        max-width: 44ch;
+      }
+
+      /* SERVICES */
+      .svcs {
+        display: grid;
+        gap: clamp(56px, 8vw, 110px);
+      }
+      .svc {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+        gap: clamp(28px, 5vw, 80px);
+        align-items: center;
+      }
+      .svc:nth-child(even) .svc-media {
+        order: 2;
+      }
+      .svc-media {
+        aspect-ratio: 4/3;
+        max-width: 100%;
+      }
+      .svc-media .num {
+        position: absolute;
+        z-index: 4;
+        left: 18px;
+        top: 16px;
+        font-family: var(--mono);
+        font-size: 12px;
+        color: rgba(243, 244, 248, 0.85);
+      }
+      .svc-media .media {
+        transform: scale(1.02);
+        transition: transform 1.6s var(--ease);
+      }
+      .svc:hover .svc-media .media {
+        transform: scale(1.06);
+      }
+      .svc-txt {
+        display: grid;
+        gap: 20px;
+        align-content: start;
+      }
+      .svc-txt .n {
+        font-family: var(--mono);
+        font-size: 13px;
+        color: var(--warm);
+      }
+      .svc-txt h3 {
+        font-size: clamp(30px, 3.8vw, 54px);
+        line-height: 1;
+        text-transform: uppercase;
+        letter-spacing: -0.015em;
+      }
+      .svc-txt p {
+        color: #c4c9da;
+        max-width: 48ch;
+        font-size: 17px;
+      }
+      .svc-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border-top: 1px solid var(--faint);
+      }
+      .svc-list li {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--faint);
+        font-size: 15px;
+      }
+      .svc-list li span {
+        color: var(--dim);
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        padding-top: 3px;
+      }
+      .svc-txt .btn {
+        justify-self: start;
+        margin-top: 6px;
+      }
+      @media (max-width: 860px) {
+        .svc {
+          grid-template-columns: 1fr;
+        }
+        .svc:nth-child(even) .svc-media {
+          order: 0;
+        }
+      }
+
+      /* CASES */
+      .cases-band {
+        background: var(--bg-2);
+        border-block: 1px solid var(--faint);
+      }
       .filters {
         display: flex;
         flex-wrap: wrap;
-        gap: 6px 26px;
+        gap: 6px 24px;
       }
       .filters button {
         background: none;
         border: 0;
+        border-bottom: 1px solid transparent;
         padding: 6px 0;
         cursor: pointer;
-        font-size: 11px;
+        font-size: 12px;
         font-weight: 600;
-        letter-spacing: 0.26em;
+        letter-spacing: 0.22em;
         text-transform: uppercase;
         color: var(--dim);
-        border-bottom: 1px solid transparent;
         transition:
           color 0.3s,
           border-color 0.3s;
@@ -842,229 +759,178 @@
         color: var(--ink);
         border-bottom-color: var(--warm);
       }
-      .works {
+      .cases {
         display: grid;
-        grid-template-columns: repeat(12, minmax(0, 1fr));
-        grid-auto-rows: clamp(240px, 27vw, 440px);
-        gap: 12px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: clamp(16px, 2vw, 28px);
       }
-      .work {
-        position: relative;
-        overflow: hidden;
+      .case {
+        display: grid;
+        gap: 18px;
         cursor: pointer;
-        background: var(--bg-2);
+        background: none;
         border: 0;
         padding: 0;
         text-align: left;
-        display: block;
-        width: 100%;
-        height: 100%;
       }
-      .work canvas {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        filter: brightness(0.78);
+      .case .media-box {
+        aspect-ratio: 16/10;
+        max-width: 100%;
+      }
+      .case .media {
+        filter: brightness(0.85);
         transform: scale(1.02);
         transition:
           transform 1.4s var(--ease),
           filter 0.8s;
       }
-      .work:hover canvas,
-      .work:focus-visible canvas {
-        transform: scale(1.07);
+      .case:hover .media,
+      .case:focus-visible .media {
+        transform: scale(1.06);
         filter: brightness(1);
       }
-      .work::before {
-        content: "";
+      .case .play {
         position: absolute;
-        inset: 0;
-        z-index: 1;
-        background: linear-gradient(transparent 50%, rgba(3, 5, 15, 0.8));
-        pointer-events: none;
-      }
-      .work .cap {
-        position: absolute;
-        z-index: 3;
-        left: 22px;
-        right: 22px;
-        bottom: 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: end;
-        gap: 14px;
-      }
-      .work h3 {
-        font-size: clamp(17px, 1.5vw, 22px);
-        font-weight: 400;
-        line-height: 1.2;
-      }
-      .work .cat {
-        font-size: 10px;
-        font-weight: 600;
-        letter-spacing: 0.26em;
-        text-transform: uppercase;
-        color: rgba(243, 244, 248, 0.7);
-        margin-bottom: 6px;
-        display: block;
-      }
-      .work .dur {
-        color: rgba(243, 244, 248, 0.7);
-        white-space: nowrap;
-      }
-      .work .pl {
-        position: absolute;
-        z-index: 3;
-        top: 20px;
-        right: 20px;
-        width: 44px;
-        height: 44px;
+        z-index: 4;
+        left: 50%;
+        top: 50%;
+        width: 68px;
+        height: 68px;
+        margin: -34px 0 0 -34px;
         border-radius: 50%;
-        border: 1px solid rgba(243, 244, 248, 0.6);
+        border: 1px solid rgba(243, 244, 248, 0.7);
         display: grid;
         place-items: center;
-        font-size: 12px;
-        opacity: 0;
-        transform: scale(0.8);
-        transition: 0.4s var(--ease);
-      }
-      .work:hover .pl,
-      .work:focus-visible .pl {
-        opacity: 1;
-        transform: none;
-      }
-      @media (max-width: 760px) {
-        .works {
-          grid-template-columns: 1fr;
-          grid-auto-rows: auto;
-        }
-        .work {
-          aspect-ratio: 4/3;
-          grid-column: auto !important;
-          height: auto;
-        }
-      }
-
-      /* services */
-      .svc-list {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        border-top: 1px solid var(--faint);
-      }
-      .svc {
-        display: grid;
-        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) auto;
-        gap: 30px;
-        align-items: center;
-        padding: clamp(22px, 3vw, 34px) 0;
-        border-bottom: 1px solid var(--faint);
-        transition: padding 0.5s var(--ease);
-      }
-      .svc h3 {
-        font-size: clamp(26px, 3.6vw, 52px);
-        line-height: 1.05;
-        letter-spacing: -0.015em;
+        background: rgba(3, 5, 15, 0.35);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        transform: scale(0.85);
+        opacity: 0.85;
         transition:
-          transform 0.5s var(--ease),
-          color 0.4s;
-        color: var(--dim);
+          transform 0.4s var(--ease),
+          opacity 0.4s;
       }
-      .svc:hover h3 {
-        transform: translateX(14px);
-        color: var(--ink);
+      .case:hover .play {
+        transform: scale(1);
+        opacity: 1;
       }
-      .svc p {
-        color: var(--dim);
-        font-size: 15px;
-        max-width: 44ch;
+      .case .dur {
+        position: absolute;
+        z-index: 4;
+        right: 14px;
+        bottom: 12px;
+        color: rgba(243, 244, 248, 0.85);
       }
-      .svc .tags {
-        font-size: 10px;
+      .case-meta {
+        display: grid;
+        gap: 8px;
+      }
+      .case-meta .cat {
+        font-size: 11px;
         font-weight: 600;
         letter-spacing: 0.24em;
         text-transform: uppercase;
+        color: var(--warm);
+      }
+      .case-meta h3 {
+        font-size: clamp(22px, 2.2vw, 30px);
+        line-height: 1.15;
+      }
+      .case-meta p {
         color: var(--dim);
-        text-align: right;
-        white-space: nowrap;
+        max-width: 52ch;
       }
-      .peek {
-        position: fixed;
-        z-index: 25;
-        left: 0;
-        top: 0;
-        width: 260px;
-        aspect-ratio: 4/5;
-        max-width: 100%;
-        pointer-events: none;
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(0.9);
-        transition:
-          opacity 0.35s,
-          transform 0.45s var(--ease);
-        overflow: hidden;
-      }
-      .peek.on {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-      }
-      .peek canvas {
-        width: 100%;
-        height: 100%;
-        display: block;
-      }
-      @media (max-width: 860px) {
-        .svc {
+      @media (max-width: 760px) {
+        .cases {
           grid-template-columns: 1fr;
-          gap: 10px;
-        }
-        .svc .tags {
-          text-align: left;
-          white-space: normal;
-        }
-        .svc h3 {
-          color: var(--ink);
-        }
-      }
-      @media (hover: none) {
-        .peek {
-          display: none;
         }
       }
 
-      /* process */
+      /* ABOUT */
+      .about {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+        gap: clamp(40px, 7vw, 120px);
+        align-items: start;
+      }
+      .about-big {
+        font-size: clamp(28px, 3.4vw, 48px);
+        line-height: 1.15;
+        font-weight: 300;
+        letter-spacing: -0.01em;
+      }
+      .about-big b {
+        font-weight: 500;
+      }
+      .about-big em {
+        font-style: normal;
+        color: var(--warm);
+      }
+      .about-r {
+        display: grid;
+        gap: 22px;
+        color: #c4c9da;
+      }
+      .highs {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: clamp(16px, 2vw, 28px);
+        margin-top: clamp(56px, 7vw, 96px);
+      }
+      .high {
+        border-top: 1px solid var(--line);
+        padding-top: 22px;
+        display: grid;
+        gap: 10px;
+        align-content: start;
+      }
+      .high b {
+        font-size: clamp(24px, 2.4vw, 34px);
+        font-weight: 500;
+        text-transform: uppercase;
+        line-height: 1.05;
+      }
+      .high span {
+        color: var(--dim);
+        font-size: 15px;
+      }
       .steps {
+        list-style: none;
+        margin: clamp(56px, 7vw, 96px) 0 0;
+        padding: 0;
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: clamp(20px, 3vw, 40px);
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        counter-reset: s;
+        gap: clamp(16px, 2vw, 28px);
       }
       .step {
-        border-top: 1px solid var(--faint);
-        padding-top: 22px;
+        background: var(--bg-2);
+        border: 1px solid var(--faint);
+        padding: 26px 22px;
         display: grid;
         gap: 12px;
         align-content: start;
       }
       .step .n {
         font-family: var(--mono);
-        font-size: 11px;
+        font-size: 12px;
         color: var(--warm);
       }
       .step h3 {
-        font-size: 22px;
-        font-weight: 400;
+        font-size: 20px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
       }
       .step p {
         color: var(--dim);
         font-size: 15px;
       }
-      @media (max-width: 860px) {
+      @media (max-width: 900px) {
+        .about {
+          grid-template-columns: 1fr;
+        }
+        .highs {
+          grid-template-columns: 1fr;
+        }
         .steps {
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
@@ -1075,53 +941,108 @@
         }
       }
 
-      /* contact */
-      .contact {
+      /* CTA BAND */
+      .cta-band {
+        position: relative;
+        overflow: hidden;
         background: var(--navy);
       }
-      .ct {
+      .cta-band .wrap {
+        position: relative;
+        z-index: 2;
+        padding-block: clamp(80px, 10vw, 140px);
         display: grid;
-        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+        gap: 30px;
+        justify-items: start;
+      }
+      .cta-band h2 {
+        font-size: clamp(36px, 6vw, 92px);
+        line-height: 0.98;
+        letter-spacing: -0.025em;
+        text-transform: uppercase;
+        max-width: 16ch;
+      }
+      .cta-band p {
+        color: #c4c9da;
+        max-width: 50ch;
+        font-size: 18px;
+      }
+      .cta-band .big-v {
+        position: absolute;
+        right: -6%;
+        bottom: -18%;
+        width: min(760px, 70vw);
+        height: auto;
+        color: rgba(243, 244, 248, 0.05);
+        z-index: 1;
+      }
+      .cta-band .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      /* CONTACT */
+      .contact {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
         gap: clamp(40px, 6vw, 100px);
         align-items: start;
       }
-      .ct h2 {
-        font-size: clamp(40px, 6.2vw, 100px);
-        line-height: 0.98;
-        letter-spacing: -0.025em;
-      }
-      .ct-l {
-        display: grid;
-        gap: 34px;
-      }
-      .mail {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        flex-wrap: wrap;
-      }
-      .mail span {
-        font-size: clamp(18px, 2vw, 26px);
-        font-weight: 300;
-        user-select: all;
-        overflow-wrap: anywhere;
-        border-bottom: 1px solid rgba(243, 244, 248, 0.3);
-        padding-bottom: 4px;
-      }
-      .copy {
-        background: none;
-        border: 0;
-        cursor: pointer;
-        font-size: 10px;
-        font-weight: 600;
-        letter-spacing: 0.26em;
-        text-transform: uppercase;
-        color: var(--warm);
-        padding: 6px 0;
-      }
-      form {
+      .contact-l {
         display: grid;
         gap: 26px;
+      }
+      .contact-l p {
+        color: var(--dim);
+        max-width: 42ch;
+      }
+      .cinfo {
+        display: grid;
+        border-top: 1px solid var(--faint);
+      }
+      .cinfo div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--faint);
+        flex-wrap: wrap;
+      }
+      .cinfo dt {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--dim);
+      }
+      .cinfo dd {
+        margin: 0;
+        font-size: 17px;
+        overflow-wrap: anywhere;
+      }
+      form.card {
+        background: var(--bg-2);
+        border: 1px solid var(--faint);
+        padding: clamp(22px, 3vw, 38px);
+        display: grid;
+        gap: 22px;
+      }
+      form.card h3 {
+        font-size: 24px;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+      }
+      form.card .sub {
+        color: var(--dim);
+        font-size: 14px;
+        margin-top: -12px;
+      }
+      .two {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 22px;
       }
       .f {
         display: grid;
@@ -1129,26 +1050,23 @@
         min-width: 0;
       }
       .f label {
-        font-size: 10px;
+        font-size: 11px;
         font-weight: 600;
-        letter-spacing: 0.26em;
+        letter-spacing: 0.22em;
         text-transform: uppercase;
-        color: rgba(243, 244, 248, 0.6);
+        color: var(--dim);
       }
       input,
       select,
       textarea {
-        font: inherit;
-        font-size: 17px;
-        font-weight: 300;
-        color: var(--ink);
         background: transparent;
         border: 0;
-        border-bottom: 1px solid rgba(243, 244, 248, 0.28);
+        border-bottom: 1px solid var(--line);
+        border-radius: 0;
         padding: 10px 0;
         width: 100%;
         min-width: 0;
-        border-radius: 0;
+        font-size: 16px;
       }
       select {
         appearance: none;
@@ -1161,17 +1079,16 @@
           ),
           linear-gradient(135deg, var(--ink) 50%, transparent 50%);
         background-position:
-          calc(100% - 10px) 52%,
-          calc(100% - 5px) 52%;
+          calc(100% - 10px) 55%,
+          calc(100% - 5px) 55%;
         background-size: 5px 5px;
         background-repeat: no-repeat;
       }
       select option {
         background: var(--navy);
-        color: var(--ink);
       }
       textarea {
-        min-height: 90px;
+        min-height: 96px;
         resize: vertical;
       }
       input:focus,
@@ -1184,43 +1101,13 @@
       textarea::placeholder {
         color: rgba(243, 244, 248, 0.35);
       }
-      .two {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 26px;
+      .form-msg {
+        font-size: 14px;
+        color: var(--warm);
+        min-height: 1.4em;
       }
-      .send {
-        justify-self: start;
-        background: var(--ink);
-        color: var(--navy);
-        border: 0;
-        padding: 16px 28px;
-        font-size: 11px;
-        font-weight: 600;
-        letter-spacing: 0.28em;
-        text-transform: uppercase;
-        cursor: pointer;
-        transition: transform 0.3s var(--ease);
-      }
-      .send:hover {
-        transform: translateY(-2px);
-      }
-      .done {
-        border-top: 1px solid rgba(243, 244, 248, 0.3);
-        padding-top: 20px;
-        display: grid;
-        gap: 12px;
-      }
-      .done pre {
-        margin: 0;
-        white-space: pre-wrap;
-        font-family: var(--mono);
-        font-size: 12px;
-        color: #d5d8e4;
-        overflow-wrap: anywhere;
-      }
-      @media (max-width: 860px) {
-        .ct {
+      @media (max-width: 900px) {
+        .contact {
           grid-template-columns: 1fr;
         }
       }
@@ -1230,32 +1117,129 @@
         }
       }
 
-      footer .wrap {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 20px;
-        padding-block: 34px;
+      /* FOOTER */
+      footer {
+        border-top: 1px solid var(--faint);
       }
-      footer p {
+      .foot {
+        display: grid;
+        grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr));
+        gap: 36px;
+        padding-block: 64px 40px;
+      }
+      .foot h4 {
+        margin: 0 0 14px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--dim);
+      }
+      .foot ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 8px;
+      }
+      .foot a:hover {
+        color: var(--warm);
+      }
+      .foot .lead {
+        font-size: clamp(22px, 2.4vw, 32px);
+        line-height: 1.15;
+        font-weight: 300;
+        margin-top: 22px;
+        max-width: 18ch;
+      }
+      .foot-bottom {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 12px;
+        padding-block: 22px calc(22px + env(safe-area-inset-bottom, 0px));
+        border-top: 1px solid var(--faint);
         color: var(--dim);
         font-size: 13px;
-        letter-spacing: 0.04em;
+      }
+      @media (max-width: 860px) {
+        .foot {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .foot > div:first-child {
+          grid-column: 1/-1;
+        }
       }
 
-      /* lightbox */
+      /* FLOATING WHATSAPP */
+      .wa-float {
+        position: fixed;
+        z-index: 45;
+        right: calc(18px + env(safe-area-inset-right, 0px));
+        bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: var(--wa);
+        color: #fff;
+        display: grid;
+        place-items: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+      }
+      .wa-float svg {
+        width: 32px;
+        height: 32px;
+      }
+      .wa-float::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: 2px solid var(--wa);
+        animation: ping 2.4s ease-out infinite;
+      }
+      @keyframes ping {
+        0% {
+          transform: scale(1);
+          opacity: 0.7;
+        }
+        80%,
+        100% {
+          transform: scale(1.6);
+          opacity: 0;
+        }
+      }
+      .wa-float .tip {
+        position: absolute;
+        right: 72px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: var(--ink);
+        color: var(--bg);
+        font-size: 13px;
+        font-weight: 500;
+        padding: 8px 12px;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s;
+      }
+      .wa-float:hover .tip {
+        opacity: 1;
+      }
+
+      /* LIGHTBOX */
       .lb {
         position: fixed;
         inset: 0;
-        z-index: 50;
-        background: rgba(0, 0, 0, 0.92);
+        z-index: 70;
+        background: rgba(0, 0, 0, 0.94);
         display: grid;
         place-items: center;
-        padding: calc(20px + env(safe-area-inset-top, 0px)) var(--gut-r)
-          calc(20px + env(safe-area-inset-bottom, 0px)) var(--gut-l);
+        padding: calc(56px + env(safe-area-inset-top, 0px)) var(--gr)
+          calc(20px + env(safe-area-inset-bottom, 0px)) var(--gl);
         opacity: 0;
-        transition: opacity 0.4s;
+        transition: opacity 0.35s;
       }
       .lb.show {
         opacity: 1;
@@ -1269,117 +1253,55 @@
         aspect-ratio: 16/9;
         max-width: 100%;
         background: #000;
-        position: relative;
       }
-      .lb-frame canvas {
-        width: 100%;
-        height: 100%;
-        display: block;
+      .lb-frame .media {
+        object-fit: contain;
       }
       .lb-bar {
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
         align-items: end;
-        gap: 20px;
-        flex-wrap: wrap;
+        gap: 18px;
       }
       .lb-bar h3 {
         font-size: clamp(22px, 2.6vw, 34px);
       }
       .lb-bar p {
         color: var(--dim);
-        font-size: 14px;
+        font-size: 15px;
+        max-width: 60ch;
+      }
+      .lb-acts {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
       }
       .lb-close {
         position: absolute;
         top: calc(14px + env(safe-area-inset-top, 0px));
-        right: calc(14px + env(safe-area-inset-right, 0px));
+        right: var(--gr);
         background: none;
         border: 0;
         cursor: pointer;
-        font-size: 11px;
+        font-size: 12px;
         font-weight: 600;
-        letter-spacing: 0.28em;
+        letter-spacing: 0.24em;
         padding: 10px;
       }
-      .lb-cta {
-        background: none;
-        border: 1px solid rgba(243, 244, 248, 0.4);
-        padding: 12px 20px;
-        font-size: 10px;
-        font-weight: 600;
-        letter-spacing: 0.26em;
-        text-transform: uppercase;
-        cursor: pointer;
-      }
-      .lb-cta:hover {
-        border-color: var(--ink);
-      }
 
-      /* real media + owner editing */
-      .media {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-      }
-      .pn .media {
-        filter: grayscale(0.9) brightness(0.5);
-        transform: scale(1.04);
-        transition:
-          filter 1s var(--ease),
-          transform 1.6s var(--ease);
-      }
-      .pn.on .media {
-        filter: none;
-        transform: scale(1);
-      }
-      .pn:not(.on):hover .media {
-        filter: grayscale(0.4) brightness(0.7);
-      }
-      .work .media {
-        filter: brightness(0.8);
-        transform: scale(1.02);
-        transition:
-          transform 1.4s var(--ease),
-          filter 0.8s;
-      }
-      .work:hover .media,
-      .work:focus-visible .media {
-        transform: scale(1.07);
-        filter: brightness(1);
-      }
-      .lb-frame .media {
-        object-fit: contain;
-        background: #000;
-      }
-      .peek .media {
-        z-index: 1;
-      }
-      .lb-acts {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-      }
       @media (prefers-reduced-motion: reduce) {
         html {
           scroll-behavior: auto;
         }
         .grain::after,
-        .pn .meta i {
+        .marq-track,
+        .wa-float::before,
+        .hero-rec i {
           animation: none;
         }
-        .pn,
-        .pn canvas,
-        .work canvas {
-          transition-duration: 0.01s;
-        }
-        .dots button.on::after,
-        .chap button.on i::after {
-          animation: none;
-          transform: none;
+        .rot span {
+          transition: none;
         }
       }
     </style>
@@ -1397,6 +1319,12 @@
             d="M231 0H316L176 159Q168 168 157 168H99Q91 168 97 161Z"
           />
         </symbol>
+        <symbol id="wa" viewBox="0 0 32 32">
+          <path
+            fill="currentColor"
+            d="M16 3C8.8 3 3 8.7 3 15.8c0 2.5.7 4.9 2 7L3 29l6.4-2c2 1.1 4.3 1.7 6.6 1.7 7.2 0 13-5.7 13-12.8S23.2 3 16 3zm0 23.4c-2.1 0-4.1-.6-5.9-1.7l-.4-.3-3.8 1.2 1.2-3.7-.3-.4c-1.2-1.8-1.9-3.9-1.9-6 0-5.9 4.9-10.7 11-10.7s11 4.8 11 10.7-4.9 10.9-10.9 10.9zm6-8c-.3-.2-1.9-1-2.2-1.1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.6.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.4c.2.2 2.4 3.6 5.8 5 .8.4 1.4.6 1.9.7.8.3 1.6.2 2.2.1.7-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"
+          />
+        </symbol>
       </defs>
     </svg>
 
@@ -1406,210 +1334,361 @@
           ><svg aria-hidden="true"><use href="#vn" /></svg
           ><span>visual norte</span></a
         >
-        <ul id="menu">
-          <li><a href="#showreel">Showreel</a></li>
-          <li><a href="#portfolio">Portfólio</a></li>
-          <li><a href="#servicos">Serviços</a></li>
-          <li><a href="#sobre">Sobre</a></li>
-          <li><a href="#contato">Contato</a></li>
-        </ul>
-        <button
-          class="menu-btn"
-          id="menuBtn"
-          aria-expanded="false"
-          aria-controls="menu"
-        >
-          MENU
-        </button>
+        <div class="nav-r">
+          <nav class="nav-links" aria-label="Principal">
+            <a href="#servicos">Serviços</a><a href="#portfolio">Portfólio</a
+            ><a href="#sobre">Sobre</a><a href="#contato">Contato</a>
+          </nav>
+          <a
+            class="btn wa js-wa"
+            href="#"
+            data-msg="Olá, Visual Norte! Quero um orçamento de vídeo com drone."
+            target="_blank"
+            rel="noopener"
+            ><svg aria-hidden="true"><use href="#wa" /></svg
+            ><span>Pedir orçamento</span></a
+          >
+          <button
+            class="menu-btn"
+            id="menuBtn"
+            type="button"
+            aria-expanded="false"
+            aria-controls="overlay"
+          >
+            <i aria-hidden="true"></i>MENU
+          </button>
+        </div>
       </div>
     </header>
 
+    <div
+      class="overlay"
+      id="overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Menu"
+      hidden
+    >
+      <div class="overlay-top">
+        <a class="brand" href="#topo"
+          ><svg aria-hidden="true"><use href="#vn" /></svg
+          ><span>visual norte</span></a
+        >
+        <button class="close-btn" id="closeMenu" type="button">FECHAR ✕</button>
+      </div>
+      <nav>
+        <a href="#servicos"><small>01</small>Serviços</a>
+        <a href="#portfolio"><small>02</small>Portfólio</a>
+        <a href="#sobre"><small>03</small>Sobre</a>
+        <a href="#contato"><small>04</small>Contato</a>
+      </nav>
+      <div class="overlay-foot">
+        <a
+          class="btn wa js-wa"
+          href="#"
+          data-msg="Olá, Visual Norte! Quero um orçamento de vídeo com drone."
+          target="_blank"
+          rel="noopener"
+          ><svg aria-hidden="true"><use href="#wa" /></svg>Falar no WhatsApp</a
+        >
+        <span class="js-insta-txt"></span>
+      </div>
+    </div>
+
     <main id="topo">
       <!-- HERO -->
-      <section class="hero" id="inicio" aria-label="Destaques">
-        <div class="wrap">
-          <div class="hero-intro">
-            <div>
-              <p class="label" style="color: var(--dim)">
-                Filmagem aérea com drone
-              </p>
-              <h1 style="margin-top: 18px">
-                Vídeos com drone para <b>eventos</b>, <b>imobiliárias</b> e
-                <b>terrenos</b>, <em>do voo à edição.</em>
-              </h1>
-              <div class="hero-cta">
-                <a class="btn" href="#contato">Pedir orçamento</a
-                ><a class="arrow" href="#showreel"
-                  >Assistir ao showreel <span>→</span></a
-                >
-              </div>
-            </div>
-            <div>
-              <p class="lead">
-                Captação aérea em 4K, edição, cor e trilha. Você recebe o vídeo
-                pronto para o site, o anúncio e as redes sociais.
-              </p>
-              <ul class="svc-chips" id="svcChips" aria-label="Serviços">
-                <li>
-                  <button type="button" data-i="0">
-                    <b>Eventos</b
-                    ><span>festas, shows, casamentos, corporativo</span>
-                  </button>
-                </li>
-                <li>
-                  <button type="button" data-i="1">
-                    <b>Imobiliárias</b
-                    ><span>lançamentos, casas, condomínios</span>
-                  </button>
-                </li>
-                <li>
-                  <button type="button" data-i="2">
-                    <b>Terrenos</b><span>lotes, glebas, loteamentos</span>
-                  </button>
-                </li>
-                <li>
-                  <button type="button" data-i="3">
-                    <b>Rural</b><span>fazendas, sítios, lavouras</span>
-                  </button>
-                </li>
-                <li>
-                  <button type="button" data-i="4">
-                    <b>Turismo</b><span>hotéis, pousadas, destinos</span>
-                  </button>
-                </li>
-              </ul>
+      <section class="hero" aria-label="Apresentação">
+        <div class="media-box grain" id="heroBox" data-slot="reel">
+          <canvas
+            id="heroCv"
+            width="1280"
+            height="720"
+            aria-hidden="true"
+          ></canvas>
+        </div>
+        <div class="hero-fade" id="heroFade"></div>
+        <div class="shade"></div>
+        <p class="hero-rec mono" aria-hidden="true">
+          <i></i>REC <span id="heroTc">00:00:00:00</span>
+        </p>
+        <div class="wrap hero-in">
+          <h1>
+            Vídeos com drone que valorizam o seu
+            <span class="rot" id="rot" aria-live="off"
+              ><span class="on">evento</span><span>imóvel</span
+              ><span>terreno</span><span>empreendimento</span
+              ><span>negócio</span></span
+            >
+          </h1>
+          <div class="hero-sub">
+            <p>
+              Filmagem aérea, edição, cor e trilha para eventos, imobiliárias e
+              terrenos. Você recebe o vídeo pronto para o anúncio, o site e as
+              redes sociais.
+            </p>
+            <div class="hero-ctas">
+              <a
+                class="btn wa js-wa"
+                href="#"
+                data-msg="Olá, Visual Norte! Quero um orçamento de vídeo com drone."
+                target="_blank"
+                rel="noopener"
+                ><svg aria-hidden="true"><use href="#wa" /></svg>Pedir
+                orçamento</a
+              >
+              <button class="btn ghost" type="button" id="watchReel">
+                ▶ Assistir ao showreel
+              </button>
             </div>
           </div>
-          <div class="panels" id="panels">
-            <article
-              class="pn grain on"
-              tabindex="0"
-              data-mode="0"
-              data-seed="3"
-              data-cat="Eventos"
-            >
-              <canvas width="720" height="880" aria-hidden="true"></canvas>
-              <div class="meta mono">
-                <span><i></i>A001 · 4K 50p</span
-                ><span class="tc">00:00:00:00</span>
+          <div class="hero-cats">
+            <a href="#s-eventos"><b>01</b>Eventos</a>
+            <a href="#s-imobiliario"><b>02</b>Imobiliárias</a>
+            <a href="#s-terrenos"><b>03</b>Terrenos</a>
+            <a href="#s-rural"><b>04</b>Rural</a>
+            <a href="#s-turismo"><b>05</b>Turismo</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- MARQUEE -->
+      <div class="marq" aria-label="Para quem filmamos">
+        <div class="marq-track" aria-hidden="true">
+          <span>Imobiliárias</span><span>Construtoras</span
+          ><span>Loteadoras</span><span>Festas e shows</span
+          ><span>Casamentos</span><span>Eventos corporativos</span
+          ><span>Fazendas</span><span>Hotéis e pousadas</span>
+          <span>Imobiliárias</span><span>Construtoras</span
+          ><span>Loteadoras</span><span>Festas e shows</span
+          ><span>Casamentos</span><span>Eventos corporativos</span
+          ><span>Fazendas</span><span>Hotéis e pousadas</span>
+        </div>
+      </div>
+
+      <!-- SERVIÇOS -->
+      <section class="sec" id="servicos">
+        <div class="wrap">
+          <div class="sec-head">
+            <div>
+              <p class="tag">Serviços</p>
+              <h2 class="h-sec">O que a gente <em>filma</em></h2>
+            </div>
+            <p>
+              Cada trabalho tem um jeito de voar. Escolhemos horário, altura e
+              trajetória pelo que o vídeo precisa mostrar.
+            </p>
+          </div>
+          <div class="svcs">
+            <article class="svc" id="s-eventos">
+              <div
+                class="svc-media media-box grain"
+                data-slot="p-Eventos"
+                data-mode="0"
+                data-seed="3"
+              >
+                <canvas width="960" height="720"></canvas
+                ><span class="num">01 / EVENTOS</span>
               </div>
-              <span class="vl">Eventos</span>
-              <div class="info">
-                <h3><b>Eventos</b> &amp; shows</h3>
+              <div class="svc-txt">
+                <span class="n">01</span>
+                <h3>Eventos</h3>
                 <p>
-                  Festivais, casamentos e corporativos filmados do alto, para
-                  mostrar o tamanho do que aconteceu.
+                  Do alto, a câmera mostra o tamanho do que aconteceu: a
+                  multidão, o palco, o lugar. Cobertura que acompanha o ritmo do
+                  evento.
                 </p>
-                <a class="arrow" href="#portfolio" data-filter="Eventos"
-                  >Ver projetos <span>→</span></a
+                <ul class="svc-list">
+                  <li>Festas, shows e festivais<span>AFTERMOVIE</span></li>
+                  <li>Casamentos<span>FILME + TEASER</span></li>
+                  <li>Eventos corporativos e feiras<span>COBERTURA</span></li>
+                  <li>Cortes verticais para redes<span>9:16</span></li>
+                </ul>
+                <a
+                  class="btn wa js-wa"
+                  href="#"
+                  data-msg="Olá, Visual Norte! Quero um orçamento de filmagem com drone para um evento."
+                  target="_blank"
+                  rel="noopener"
+                  ><svg aria-hidden="true"><use href="#wa" /></svg>Pedir
+                  orçamento</a
                 >
               </div>
             </article>
-            <article
-              class="pn grain"
-              tabindex="0"
-              data-mode="1"
-              data-seed="4"
-              data-cat="Imobiliário"
-            >
-              <canvas width="720" height="880" aria-hidden="true"></canvas>
-              <div class="meta mono">
-                <span><i></i>B002 · 5.1K 24p</span
-                ><span class="tc">00:00:00:00</span>
+            <article class="svc" id="s-imobiliario">
+              <div
+                class="svc-media media-box grain"
+                data-slot="p-Imobiliário"
+                data-mode="1"
+                data-seed="4"
+              >
+                <canvas width="960" height="720"></canvas
+                ><span class="num">02 / IMOBILIÁRIO</span>
               </div>
-              <span class="vl">Imobiliário</span>
-              <div class="info">
-                <h3><b>Imobiliário</b> &amp; arquitetura</h3>
+              <div class="svc-txt">
+                <span class="n">02</span>
+                <h3>Imobiliárias e construtoras</h3>
                 <p>
-                  Lançamentos e condomínios apresentados com a vista, o entorno
-                  e a luz da hora azul.
+                  O imóvel apresentado com a vista, o entorno, os acessos e a
+                  melhor luz do dia. O tipo de vídeo que faz o comprador agendar
+                  a visita.
                 </p>
-                <a class="arrow" href="#portfolio" data-filter="Imobiliário"
-                  >Ver projetos <span>→</span></a
+                <ul class="svc-list">
+                  <li>Lançamentos e empreendimentos<span>FILME</span></li>
+                  <li>
+                    Casas e apartamentos de alto padrão<span>TOUR AÉREO</span>
+                  </li>
+                  <li>Acompanhamento de obra<span>MENSAL</span></li>
+                  <li>Fotos aéreas para anúncio<span>FOTO</span></li>
+                </ul>
+                <a
+                  class="btn wa js-wa"
+                  href="#"
+                  data-msg="Olá, Visual Norte! Quero um orçamento de vídeo com drone para imóvel."
+                  target="_blank"
+                  rel="noopener"
+                  ><svg aria-hidden="true"><use href="#wa" /></svg>Pedir
+                  orçamento</a
                 >
               </div>
             </article>
-            <article
-              class="pn grain"
-              tabindex="0"
-              data-mode="2"
-              data-seed="6"
-              data-cat="Terrenos"
-            >
-              <canvas width="720" height="880" aria-hidden="true"></canvas>
-              <div class="meta mono">
-                <span><i></i>C004 · 4K 30p</span
-                ><span class="tc">00:00:00:00</span>
+            <article class="svc" id="s-terrenos">
+              <div
+                class="svc-media media-box grain"
+                data-slot="p-Terrenos"
+                data-mode="2"
+                data-seed="6"
+              >
+                <canvas width="960" height="720"></canvas
+                ><span class="num">03 / TERRENOS</span>
               </div>
-              <span class="vl">Terrenos</span>
-              <div class="info">
-                <h3><b>Terrenos</b> &amp; loteamentos</h3>
+              <div class="svc-txt">
+                <span class="n">03</span>
+                <h3>Terrenos e loteamentos</h3>
                 <p>
-                  Acesso, relevo, divisas e vizinhança em um só plano. O
-                  comprador entende a área antes de visitar.
+                  Acesso, relevo, divisas e vizinhança num único plano. Quem vê
+                  o vídeo entende a área antes de ir até ela.
                 </p>
-                <a class="arrow" href="#portfolio" data-filter="Terrenos"
-                  >Ver projetos <span>→</span></a
+                <ul class="svc-list">
+                  <li>Lotes e glebas à venda<span>VÍDEO + FOTO</span></li>
+                  <li>Loteamentos e condomínios<span>APRESENTAÇÃO</span></li>
+                  <li>Marcação de divisas no vídeo<span>GRÁFICOS</span></li>
+                </ul>
+                <a
+                  class="btn wa js-wa"
+                  href="#"
+                  data-msg="Olá, Visual Norte! Quero um orçamento de vídeo com drone para terreno."
+                  target="_blank"
+                  rel="noopener"
+                  ><svg aria-hidden="true"><use href="#wa" /></svg>Pedir
+                  orçamento</a
                 >
               </div>
             </article>
-            <article
-              class="pn grain"
-              tabindex="0"
-              data-mode="3"
-              data-seed="8"
-              data-cat="Rural"
-            >
-              <canvas width="720" height="880" aria-hidden="true"></canvas>
-              <div class="meta mono">
-                <span><i></i>D001 · 4K 30p</span
-                ><span class="tc">00:00:00:00</span>
+            <article class="svc" id="s-rural">
+              <div
+                class="svc-media media-box grain"
+                data-slot="p-Rural"
+                data-mode="3"
+                data-seed="8"
+              >
+                <canvas width="960" height="720"></canvas
+                ><span class="num">04 / RURAL</span>
               </div>
-              <span class="vl">Rural</span>
-              <div class="info">
-                <h3><b>Rural</b> &amp; agro</h3>
+              <div class="svc-txt">
+                <span class="n">04</span>
+                <h3>Rural e agro</h3>
                 <p>
-                  Fazendas, pivôs e lavouras registrados para venda,
-                  apresentação e acompanhamento de safra.
+                  Fazendas, sítios e lavouras registrados para venda,
+                  apresentação a investidores e acompanhamento da safra.
                 </p>
-                <a class="arrow" href="#portfolio" data-filter="Rural"
-                  >Ver projetos <span>→</span></a
+                <ul class="svc-list">
+                  <li>Fazendas e sítios à venda<span>FILME</span></li>
+                  <li>Institucional do agronegócio<span>VÍDEO</span></li>
+                  <li>Registro de safra<span>PERIÓDICO</span></li>
+                </ul>
+                <a
+                  class="btn wa js-wa"
+                  href="#"
+                  data-msg="Olá, Visual Norte! Quero um orçamento de vídeo com drone para propriedade rural."
+                  target="_blank"
+                  rel="noopener"
+                  ><svg aria-hidden="true"><use href="#wa" /></svg>Pedir
+                  orçamento</a
                 >
               </div>
             </article>
-            <article
-              class="pn grain"
-              tabindex="0"
-              data-mode="4"
-              data-seed="5"
-              data-cat="Turismo"
-            >
-              <canvas width="720" height="880" aria-hidden="true"></canvas>
-              <div class="meta mono">
-                <span><i></i>E003 · 5.1K 50p</span
-                ><span class="tc">00:00:00:00</span>
+            <article class="svc" id="s-turismo">
+              <div
+                class="svc-media media-box grain"
+                data-slot="p-Turismo"
+                data-mode="4"
+                data-seed="5"
+              >
+                <canvas width="960" height="720"></canvas
+                ><span class="num">05 / TURISMO</span>
               </div>
-              <span class="vl">Turismo</span>
-              <div class="info">
-                <h3><b>Turismo</b> &amp; hotelaria</h3>
+              <div class="svc-txt">
+                <span class="n">05</span>
+                <h3>Turismo e hotelaria</h3>
                 <p>
-                  Pousadas, hotéis e destinos mostrados do jeito que fazem
+                  Hotéis, pousadas e destinos mostrados do jeito que fazem
                   alguém querer reservar.
                 </p>
-                <a class="arrow" href="#portfolio" data-filter="Turismo"
-                  >Ver projetos <span>→</span></a
+                <ul class="svc-list">
+                  <li>Hotéis, pousadas e resorts<span>INSTITUCIONAL</span></li>
+                  <li>Destinos e atrativos<span>VÍDEO</span></li>
+                  <li>Conteúdo para redes<span>REELS</span></li>
+                </ul>
+                <a
+                  class="btn wa js-wa"
+                  href="#"
+                  data-msg="Olá, Visual Norte! Quero um orçamento de vídeo com drone para turismo/hotelaria."
+                  target="_blank"
+                  rel="noopener"
+                  ><svg aria-hidden="true"><use href="#wa" /></svg>Pedir
+                  orçamento</a
                 >
               </div>
             </article>
           </div>
-          <div class="hero-foot">
+        </div>
+      </section>
+
+      <!-- PORTFÓLIO -->
+      <section class="sec cases-band" id="portfolio">
+        <div class="wrap">
+          <div class="sec-head">
+            <div>
+              <p class="tag">Portfólio</p>
+              <h2 class="h-sec">Trabalhos <em>recentes</em></h2>
+            </div>
             <div
-              class="dots"
-              id="dots"
-              role="tablist"
-              aria-label="Escolher destaque"
-            ></div>
+              class="filters"
+              id="filters"
+              role="group"
+              aria-label="Filtrar por categoria"
+            >
+              <button type="button" aria-pressed="true" data-f="Todos">
+                Todos
+              </button>
+              <button type="button" aria-pressed="false" data-f="Eventos">
+                Eventos
+              </button>
+              <button type="button" aria-pressed="false" data-f="Imobiliário">
+                Imobiliário
+              </button>
+              <button type="button" aria-pressed="false" data-f="Terrenos">
+                Terrenos
+              </button>
+              <button type="button" aria-pressed="false" data-f="Rural">
+                Rural
+              </button>
+              <button type="button" aria-pressed="false" data-f="Turismo">
+                Turismo
+              </button>
+            </div>
           </div>
+          <div class="cases" id="cases"></div>
         </div>
       </section>
 
@@ -1618,10 +1697,11 @@
         <div class="wrap">
           <div class="about">
             <div>
-              <p class="label" style="color: var(--dim)">Visual Norte</p>
-              <h2 style="margin-top: 22px">
-                Toda história fica maior <em>vista de cima.</em>
-              </h2>
+              <p class="tag" style="margin-bottom: 22px">Sobre nós</p>
+              <p class="about-big">
+                Uma produtora de vídeo com drone que <b>cuida de tudo</b>: do
+                plano de voo à <em>entrega pronta para postar.</em>
+              </p>
             </div>
             <div class="about-r">
               <p>
@@ -1631,299 +1711,49 @@
                 estava lá.
               </p>
               <p>
-                A Visual Norte planeja, voa, edita e entrega o filme pronto, com
-                cor e som, nos formatos que você vai usar.
+                Quem planeja o voo é quem monta o filme depois. Então o que você
+                aprova na conversa é o que chega na entrega, sem surpresa.
               </p>
-            </div>
-          </div>
-          <div class="facts">
-            <div><b>4K · 5.1K</b><span>captação em alta resolução</span></div>
-            <div>
-              <b>Cor de cinema</b><span>graduação feita em cada plano</span>
-            </div>
-            <div><b>16:9 · 9:16</b><span>versões para site e redes</span></div>
-            <div>
-              <b>Até 120 m</b><span>voos dentro das regras da ANAC</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SHOWREEL -->
-      <section class="reel" id="showreel" aria-label="Showreel">
-        <div class="reel-frame grain">
-          <canvas
-            id="reelCv"
-            width="1440"
-            height="602"
-            aria-label="Showreel da Visual Norte"
-          ></canvas>
-          <div class="reel-fade" id="reelFade"></div>
-          <div class="reel-title"><p id="reelName">Eventos</p></div>
-          <div class="reel-ui">
-            <div class="row">
-              <span class="label" style="font-size: 11px">Showreel 2026</span
-              ><span class="mono" id="reelTc">00:00:00:00</span>
-            </div>
-            <div class="row">
-              <div class="chap" id="chap"></div>
-              <button class="snd" id="snd" aria-pressed="false">
-                <span class="bars" aria-hidden="true"
-                  ><i></i><i></i><i></i><i></i></span
-                ><span id="sndTxt">Ativar som</span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="wrap reel-cap">
-          <span>Eventos · Imobiliário · Terrenos · Rural · Turismo</span
-          ><span>Ative o som para ouvir a trilha</span>
-        </div>
-      </section>
-
-      <!-- PORTFÓLIO -->
-      <section class="sec" id="portfolio">
-        <div class="wrap">
-          <div class="sec-top">
-            <div>
-              <p class="label">Portfólio</p>
-              <h2>Trabalhos recentes</h2>
-            </div>
-            <div
-              class="filters"
-              id="filters"
-              role="group"
-              aria-label="Filtrar por categoria"
-            >
-              <button aria-pressed="true" data-f="Todos">Todos</button>
-              <button aria-pressed="false" data-f="Eventos">Eventos</button>
-              <button aria-pressed="false" data-f="Imobiliário">
-                Imobiliário
-              </button>
-              <button aria-pressed="false" data-f="Terrenos">Terrenos</button>
-              <button aria-pressed="false" data-f="Rural">Rural</button>
-              <button aria-pressed="false" data-f="Turismo">Turismo</button>
-            </div>
-          </div>
-          <div class="works" id="works">
-            <div
-              class="work grain"
-              role="button"
-              tabindex="0"
-              data-mode="0"
-              data-seed="3"
-              data-cat="Eventos"
-              data-desc="Aftermovie · 2:40"
-            >
-              <canvas width="900" height="560"></canvas
-              ><span class="pl" aria-hidden="true">▶</span
-              ><span class="cap"
-                ><span
-                  ><span class="cat">Eventos</span>
-                  <h3>Festival ao pôr do sol</h3></span
-                ><span class="mono dur">02:40</span></span
-              >
-            </div>
-            <div
-              class="work grain"
-              role="button"
-              tabindex="0"
-              data-mode="1"
-              data-seed="4"
-              data-cat="Imobiliário"
-              data-desc="Filme de lançamento · 1:30"
-            >
-              <canvas width="900" height="560"></canvas
-              ><span class="pl" aria-hidden="true">▶</span
-              ><span class="cap"
-                ><span
-                  ><span class="cat">Imobiliário</span>
-                  <h3>Torre residencial, hora azul</h3></span
-                ><span class="mono dur">01:30</span></span
-              >
-            </div>
-            <div
-              class="work grain"
-              role="button"
-              tabindex="0"
-              data-mode="2"
-              data-seed="6"
-              data-cat="Terrenos"
-              data-desc="Apresentação de área · 1:10"
-            >
-              <canvas width="900" height="560"></canvas
-              ><span class="pl" aria-hidden="true">▶</span
-              ><span class="cap"
-                ><span
-                  ><span class="cat">Terrenos</span>
-                  <h3>Loteamento em encosta</h3></span
-                ><span class="mono dur">01:10</span></span
-              >
-            </div>
-            <div
-              class="work grain"
-              role="button"
-              tabindex="0"
-              data-mode="0"
-              data-seed="21"
-              data-cat="Eventos"
-              data-desc="Filme de casamento · 4:20"
-            >
-              <canvas width="900" height="560"></canvas
-              ><span class="pl" aria-hidden="true">▶</span
-              ><span class="cap"
-                ><span
-                  ><span class="cat">Eventos</span>
-                  <h3>Casamento no campo</h3></span
-                ><span class="mono dur">04:20</span></span
-              >
-            </div>
-            <div
-              class="work grain"
-              role="button"
-              tabindex="0"
-              data-mode="4"
-              data-seed="5"
-              data-cat="Turismo"
-              data-desc="Vídeo institucional · 1:00"
-            >
-              <canvas width="900" height="560"></canvas
-              ><span class="pl" aria-hidden="true">▶</span
-              ><span class="cap"
-                ><span
-                  ><span class="cat">Turismo</span>
-                  <h3>Pousada pé na areia</h3></span
-                ><span class="mono dur">01:00</span></span
-              >
-            </div>
-            <div
-              class="work grain"
-              role="button"
-              tabindex="0"
-              data-mode="3"
-              data-seed="8"
-              data-cat="Rural"
-              data-desc="Vídeo de venda · 2:00"
-            >
-              <canvas width="900" height="560"></canvas
-              ><span class="pl" aria-hidden="true">▶</span
-              ><span class="cap"
-                ><span
-                  ><span class="cat">Rural</span>
-                  <h3>Fazenda com pivôs</h3></span
-                ><span class="mono dur">02:00</span></span
-              >
-            </div>
-            <div
-              class="work grain"
-              role="button"
-              tabindex="0"
-              data-mode="1"
-              data-seed="12"
-              data-cat="Imobiliário"
-              data-desc="Tour aéreo · 1:45"
-            >
-              <canvas width="900" height="560"></canvas
-              ><span class="pl" aria-hidden="true">▶</span
-              ><span class="cap"
-                ><span
-                  ><span class="cat">Imobiliário</span>
-                  <h3>Condomínio fechado</h3></span
-                ><span class="mono dur">01:45</span></span
-              >
-            </div>
-            <div
-              class="work grain"
-              role="button"
-              tabindex="0"
-              data-mode="2"
-              data-seed="17"
-              data-cat="Terrenos"
-              data-desc="Venda de terreno · 0:50"
-            >
-              <canvas width="900" height="560"></canvas
-              ><span class="pl" aria-hidden="true">▶</span
-              ><span class="cap"
-                ><span
-                  ><span class="cat">Terrenos</span>
-                  <h3>Gleba à venda</h3></span
-                ><span class="mono dur">00:50</span></span
+              <a
+                class="link-arrow js-wa"
+                href="#"
+                data-msg="Olá, Visual Norte! Quero conversar sobre um projeto."
+                target="_blank"
+                rel="noopener"
+                >Conversar sobre o seu projeto <span>→</span></a
               >
             </div>
           </div>
-        </div>
-      </section>
-
-      <!-- SERVIÇOS -->
-      <section class="sec" id="servicos" style="padding-top: 0">
-        <div class="wrap">
-          <div class="sec-top">
-            <div>
-              <p class="label">Serviços</p>
-              <h2>O que filmamos</h2>
+          <div class="highs">
+            <div class="high">
+              <b>Imagem em 4K</b
+              ><span
+                >Captação aérea em alta resolução, com cor tratada em cada
+                plano.</span
+              >
+            </div>
+            <div class="high">
+              <b>Edição completa</b
+              ><span
+                >Montagem, trilha, letreiros e versões para cada rede
+                social.</span
+              >
+            </div>
+            <div class="high">
+              <b>Voo regularizado</b
+              ><span
+                >Planejamento de espaço aéreo e voos dentro das regras da
+                ANAC.</span
+              >
             </div>
           </div>
-          <ul class="svc-list" id="svcList">
-            <li class="svc" data-mode="0" data-seed="21">
-              <h3>Eventos</h3>
-              <p>
-                Festivais, casamentos, feiras e corporativos. Aftermovie no dia
-                seguinte e cortes para redes.
-              </p>
-              <span class="tags">Aftermovie · Reels</span>
-            </li>
-            <li class="svc" data-mode="1" data-seed="12">
-              <h3>Imobiliário</h3>
-              <p>
-                Lançamentos, condomínios, casas e prédios com vista, entorno e
-                tour aéreo pela fachada.
-              </p>
-              <span class="tags">Lançamento · Tour</span>
-            </li>
-            <li class="svc" data-mode="2" data-seed="17">
-              <h3>Terrenos e loteamentos</h3>
-              <p>
-                Áreas à venda com acesso, divisas, relevo e distância até os
-                pontos que importam.
-              </p>
-              <span class="tags">Venda · Apresentação</span>
-            </li>
-            <li class="svc" data-mode="3" data-seed="9">
-              <h3>Rural e agro</h3>
-              <p>
-                Fazendas, sítios e lavouras para venda, prospecção de
-                investidores e registro da safra.
-              </p>
-              <span class="tags">Fazendas · Safra</span>
-            </li>
-            <li class="svc" data-mode="4" data-seed="5">
-              <h3>Turismo e hotelaria</h3>
-              <p>
-                Pousadas, hotéis, resorts e destinos com imagens que vendem a
-                estadia.
-              </p>
-              <span class="tags">Hotéis · Destinos</span>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- PROCESSO -->
-      <section class="sec" style="padding-top: 0" aria-label="Como trabalhamos">
-        <div class="wrap">
-          <div class="sec-top">
-            <div>
-              <p class="label">Como trabalhamos</p>
-              <h2>Do briefing à entrega</h2>
-            </div>
-          </div>
-          <ol class="steps">
+          <ol class="steps" aria-label="Como trabalhamos">
             <li class="step">
               <span class="n">01</span>
               <h3>Conversa</h3>
               <p>
-                Entendemos o que precisa ser mostrado, onde o vídeo vai passar e
-                o prazo.
+                Você conta o que precisa mostrar, onde o vídeo vai passar e o
+                prazo.
               </p>
             </li>
             <li class="step">
@@ -1931,122 +1761,228 @@
               <h3>Plano de voo</h3>
               <p>
                 Escolhemos o horário de luz, checamos o espaço aéreo e listamos
-                cada plano.
+                os planos.
               </p>
             </li>
             <li class="step">
               <span class="n">03</span>
               <h3>Captação</h3>
               <p>
-                Voo e câmera em campo, com backup dos arquivos antes de sair do
-                local.
+                Voo e câmera no local, com backup dos arquivos antes de sair.
               </p>
             </li>
             <li class="step">
               <span class="n">04</span>
-              <h3>Edição e entrega</h3>
+              <h3>Entrega</h3>
               <p>
-                Montagem, cor, trilha e versões para cada rede. Você revisa por
-                link.
+                Vídeo editado em alta, mais versões para Instagram, YouTube e
+                anúncios.
               </p>
             </li>
           </ol>
         </div>
       </section>
 
-      <!-- CONTATO -->
-      <section class="sec contact" id="contato">
-        <div class="wrap ct">
-          <div class="ct-l">
-            <p class="label" style="color: rgba(243, 244, 248, 0.6)">Contato</p>
-            <h2>Vamos filmar o seu próximo projeto.</h2>
-            <div class="mail">
-              <span id="mail">contato@visualnorte.com.br</span
-              ><button class="copy" type="button" id="copyMail">Copiar</button>
-            </div>
+      <!-- CTA -->
+      <section class="cta-band" aria-label="Chamada">
+        <svg class="big-v" aria-hidden="true" viewBox="0 0 316 170">
+          <use href="#vn" />
+        </svg>
+        <div class="wrap">
+          <p class="tag">Vamos voar?</p>
+          <h2>O seu próximo vídeo começa com uma mensagem.</h2>
+          <p>
+            Conte o que você quer filmar, onde e quando. Respondemos com
+            proposta e ideias de planos.
+          </p>
+          <div class="row">
+            <a
+              class="btn wa js-wa"
+              href="#"
+              data-msg="Olá, Visual Norte! Quero um orçamento de vídeo com drone."
+              target="_blank"
+              rel="noopener"
+              ><svg aria-hidden="true"><use href="#wa" /></svg>Chamar no
+              WhatsApp</a
+            >
+            <a class="btn ghost" href="#contato">Preencher formulário</a>
           </div>
-          <form id="form" novalidate>
+        </div>
+      </section>
+
+      <!-- CONTATO -->
+      <section class="sec" id="contato">
+        <div class="wrap contact">
+          <div class="contact-l">
+            <p class="tag">Contato</p>
+            <h2 class="h-sec">Vamos falar sobre o seu <em>projeto</em></h2>
+            <p>
+              Preencha ao lado e a mensagem já sai pronta no WhatsApp. Se
+              preferir, use os contatos abaixo.
+            </p>
+            <dl class="cinfo">
+              <div>
+                <dt>WhatsApp</dt>
+                <dd>
+                  <a
+                    class="js-wa js-wa-txt"
+                    href="#"
+                    data-msg="Olá, Visual Norte!"
+                    target="_blank"
+                    rel="noopener"
+                  ></a>
+                </dd>
+              </div>
+              <div>
+                <dt>E-mail</dt>
+                <dd class="js-email"></dd>
+              </div>
+              <div class="js-insta-row">
+                <dt>Instagram</dt>
+                <dd>
+                  <a
+                    class="js-insta"
+                    href="#"
+                    target="_blank"
+                    rel="noopener"
+                  ></a>
+                </dd>
+              </div>
+              <div>
+                <dt>Atendimento</dt>
+                <dd class="js-region"></dd>
+              </div>
+            </dl>
+          </div>
+          <form class="card" id="form" novalidate>
+            <h3>Pedir orçamento</h3>
+            <p class="sub">Resposta rápida pelo WhatsApp. Sem compromisso.</p>
             <div class="two">
               <div class="f">
-                <label for="nome">Nome</label
+                <label for="fNome">Nome</label
                 ><input
-                  id="nome"
+                  id="fNome"
                   name="nome"
                   autocomplete="name"
                   placeholder="Seu nome"
                 />
               </div>
               <div class="f">
-                <label for="contatoIn">WhatsApp ou e-mail</label
+                <label for="fEmpresa">Empresa (opcional)</label
                 ><input
-                  id="contatoIn"
-                  name="contato"
-                  placeholder="Para respondermos"
+                  id="fEmpresa"
+                  name="empresa"
+                  autocomplete="organization"
+                  placeholder="Imobiliária, produtora…"
                 />
               </div>
             </div>
             <div class="two">
               <div class="f">
-                <label for="tipo">Tipo de vídeo</label>
-                <select id="tipo" name="tipo">
+                <label for="fTipo">Tipo de vídeo</label>
+                <select id="fTipo" name="tipo">
                   <option>Evento</option>
-                  <option>Imobiliário</option>
+                  <option>Imóvel</option>
                   <option>Terreno ou loteamento</option>
                   <option>Rural</option>
-                  <option>Turismo</option>
+                  <option>Turismo ou hotelaria</option>
                   <option>Outro</option>
                 </select>
               </div>
               <div class="f">
-                <label for="data">Data prevista</label
-                ><input id="data" name="data" type="date" />
+                <label for="fData">Data prevista</label
+                ><input id="fData" name="data" type="date" />
               </div>
             </div>
             <div class="f">
-              <label for="msg">Conte sobre o projeto</label
+              <label for="fLocal">Cidade / local</label
+              ><input
+                id="fLocal"
+                name="local"
+                placeholder="Onde será a filmagem"
+              />
+            </div>
+            <div class="f">
+              <label for="fMsg">Sobre o projeto</label
               ><textarea
-                id="msg"
+                id="fMsg"
                 name="msg"
-                placeholder="Local, ideia, onde o vídeo vai ser usado"
+                placeholder="Conte o que você imagina para o vídeo"
               ></textarea>
             </div>
-            <button class="send" type="submit">Preparar pedido</button>
-            <div class="done" id="done" hidden>
-              <p class="label" style="font-size: 10px; color: var(--warm)">
-                Pedido pronto
-              </p>
-              <pre id="doneTxt"></pre>
-              <p style="color: rgba(243, 244, 248, 0.6); font-size: 14px">
-                Copie e envie para o e-mail ao lado ou pelo WhatsApp.
-              </p>
-              <button
-                class="copy"
-                type="button"
-                id="copyReq"
-                style="justify-self: start"
-              >
-                Copiar pedido
-              </button>
-            </div>
+            <button class="btn wa" type="submit">
+              <svg aria-hidden="true"><use href="#wa" /></svg>Enviar pelo
+              WhatsApp
+            </button>
+            <p class="form-msg" id="formMsg" role="status"></p>
           </form>
         </div>
       </section>
     </main>
 
     <footer>
-      <div class="wrap">
-        <a class="brand" href="#topo" aria-label="Voltar ao topo"
-          ><svg aria-hidden="true"><use href="#vn" /></svg
-          ><span>visual norte</span></a
-        >
-        <p>Filmagem aérea com drone · © 2026 Visual Norte</p>
+      <div class="wrap foot">
+        <div>
+          <a class="brand" href="#topo" aria-label="Voltar ao topo"
+            ><svg aria-hidden="true"><use href="#vn" /></svg
+            ><span>visual norte</span></a
+          >
+          <p class="lead">Vamos conversar sobre o seu projeto?</p>
+        </div>
+        <div>
+          <h4>Navegue</h4>
+          <ul>
+            <li><a href="#servicos">Serviços</a></li>
+            <li><a href="#portfolio">Portfólio</a></li>
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#contato">Contato</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Serviços</h4>
+          <ul>
+            <li><a href="#s-eventos">Eventos</a></li>
+            <li><a href="#s-imobiliario">Imobiliárias</a></li>
+            <li><a href="#s-terrenos">Terrenos</a></li>
+            <li><a href="#s-rural">Rural</a></li>
+            <li><a href="#s-turismo">Turismo</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contato</h4>
+          <ul>
+            <li>
+              <a
+                class="js-wa js-wa-txt"
+                href="#"
+                data-msg="Olá, Visual Norte!"
+                target="_blank"
+                rel="noopener"
+              ></a>
+            </li>
+            <li class="js-email"></li>
+            <li class="js-insta-row">
+              <a class="js-insta" href="#" target="_blank" rel="noopener"></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="wrap foot-bottom">
+        <span>© 2026 Visual Norte · Filmagem aérea com drone</span
+        ><span class="js-region"></span>
       </div>
     </footer>
 
-    <div class="peek" id="peek" aria-hidden="true">
-      <canvas width="400" height="500"></canvas
-      ><video class="media" muted loop playsinline hidden></video>
-    </div>
+    <a
+      class="wa-float js-wa"
+      href="#"
+      data-msg="Olá, Visual Norte! Vim pelo site e quero um orçamento."
+      target="_blank"
+      rel="noopener"
+      aria-label="Falar no WhatsApp"
+      ><svg aria-hidden="true"><use href="#wa" /></svg
+      ><span class="tip">Fale com a gente</span></a
+    >
 
     <div
       class="lb"
@@ -2056,31 +1992,30 @@
       aria-labelledby="lbTitle"
       hidden
     >
-      <button class="lb-close" id="lbClose">FECHAR ✕</button>
+      <button class="lb-close" id="lbClose" type="button">FECHAR ✕</button>
       <div class="lb-in">
-        <div class="lb-frame grain">
+        <div class="lb-frame media-box grain" id="lbFrame">
           <canvas id="lbCv" width="1280" height="720"></canvas>
         </div>
         <div class="lb-bar">
           <div>
-            <span
-              class="cat label"
-              id="lbCat"
-              style="font-size: 10px; color: var(--dim)"
-            ></span>
-            <h3 id="lbTitle" style="margin-top: 8px"></h3>
+            <p class="tag" id="lbCat" style="margin-bottom: 10px"></p>
+            <h3 id="lbTitle"></h3>
             <p id="lbDesc"></p>
           </div>
           <div class="lb-acts">
             <a
-              class="lb-cta"
+              class="btn ghost"
               id="lbLink"
               href="#"
               target="_blank"
               rel="noopener"
               hidden
               >Assistir completo ↗</a
-            ><button class="lb-cta" id="lbCta">Quero um vídeo assim</button>
+            ><a class="btn wa" id="lbWa" href="#" target="_blank" rel="noopener"
+              ><svg aria-hidden="true"><use href="#wa" /></svg>Quero um vídeo
+              assim</a
+            >
           </div>
         </div>
       </div>
@@ -2089,16 +2024,45 @@
     <script src="config.js"></script>
     <script>
       (() => {
+        const C = window.VN_CONFIG || {};
         const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
         const $ = (s) => document.querySelector(s),
           $$ = (s) => [...document.querySelectorAll(s)];
-        const C = window.VN_CONFIG || {};
-        let media = { slots: {} };
-        const has = (s) => !!(media.slots[s] && media.slots[s].path);
-        const src = (s) =>
-          `${C.supabaseUrl}/storage/v1/object/public/${C.bucket || "videos"}/${encodeURI(media.slots[s].path)}`;
 
-        /* film grain texture */
+        /* ---------- contact data from config.js ---------- */
+        const WA = (C.whatsapp || "").replace(/\D/g, "");
+        const waUrl = (msg) =>
+          WA
+            ? `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`
+            : "#contato";
+        function fmtPhone(n) {
+          const m = n.match(/^55(\d{2})(\d{4,5})(\d{4})$/);
+          return m ? `(${m[1]}) ${m[2]}-${m[3]}` : "+" + n;
+        }
+        $$(".js-wa").forEach((a) => {
+          a.href = waUrl(a.dataset.msg || "Olá, Visual Norte!");
+          if (!WA) a.removeAttribute("target");
+        });
+        $$(".js-wa-txt").forEach(
+          (a) => (a.textContent = WA ? fmtPhone(WA) : "Configure no config.js"),
+        );
+        $$(".js-email").forEach(
+          (e) => (e.textContent = C.email || "contato@visualnorte.com.br"),
+        );
+        const IG = (C.instagram || "").replace(/^@/, "");
+        $$(".js-insta").forEach((a) => {
+          a.href = "https://instagram.com/" + IG;
+          a.textContent = "@" + IG;
+        });
+        $$(".js-insta-txt").forEach(
+          (e) => (e.textContent = IG ? "@" + IG : ""),
+        );
+        if (!IG) $$(".js-insta-row").forEach((e) => (e.hidden = true));
+        $$(".js-region").forEach(
+          (e) => (e.textContent = C.region || "São Paulo e região"),
+        );
+
+        /* film grain */
         try {
           const g = document.createElement("canvas");
           g.width = g.height = 180;
@@ -2116,7 +2080,54 @@
           );
         } catch (e) {}
 
-        /* ---------- scenes (WebGL) ---------- */
+        /* ---------- nav + menu ---------- */
+        const nav = $("#nav");
+        const onScroll = () => nav.classList.toggle("solid", scrollY > 40);
+        addEventListener("scroll", onScroll, { passive: true });
+        onScroll();
+        const ov = $("#overlay"),
+          mb = $("#menuBtn");
+        function openMenu() {
+          ov.hidden = false;
+          requestAnimationFrame(() => ov.classList.add("show"));
+          mb.setAttribute("aria-expanded", "true");
+          document.body.style.overflow = "hidden";
+          $("#closeMenu").focus();
+        }
+        function closeMenu() {
+          ov.classList.remove("show");
+          mb.setAttribute("aria-expanded", "false");
+          document.body.style.overflow = "";
+          setTimeout(() => (ov.hidden = true), reduce ? 0 : 400);
+        }
+        mb.addEventListener("click", openMenu);
+        $("#closeMenu").addEventListener("click", closeMenu);
+        $$("#overlay nav a, #overlay .brand").forEach((a) =>
+          a.addEventListener("click", closeMenu),
+        );
+        addEventListener("keydown", (e) => {
+          if (e.key === "Escape") {
+            if (!ov.hidden) closeMenu();
+            if (lbOpen) closeLb();
+          }
+        });
+
+        /* rotating word */
+        const rs = $$("#rot span");
+        let ri = 0;
+        if (!reduce)
+          setInterval(() => {
+            const a = rs[ri];
+            a.classList.remove("on");
+            a.classList.add("out");
+            ri = (ri + 1) % rs.length;
+            const b = rs[ri];
+            b.classList.remove("out");
+            b.classList.add("on");
+            setTimeout(() => a.classList.remove("out"), 650);
+          }, 2600);
+
+        /* ---------- generated scenes (fallback when no video) ---------- */
         const FS = `precision highp float;
 uniform vec2 r;uniform float t,mode,seed;uniform vec2 cam;
 float hs(vec2 p){p=fract(p*vec2(123.34,456.21)+seed*.1371);p+=dot(p,p+45.32);return fract(p.x*p.y);}
@@ -2243,730 +2254,376 @@ void main(){vec2 uv=(gl_FragCoord.xy-.5*r)/r.y;vec3 c;
         const tc = (s) =>
           `${pad(s / 3600)}:${pad((s / 60) % 60)}:${pad(s % 60)}:${pad((s % 1) * 25)}`;
 
-        /* ---------- hero panels ---------- */
-        const gHero = makeGL(720, 880);
-        const panels = $$(".pn"),
-          dots = $("#dots");
-        let active = 0,
-          touched = false,
-          heroIn = true;
-        panels.forEach((p, i) => {
-          p.dataset.slot = "p-" + p.dataset.cat;
-          const b = document.createElement("button");
-          b.setAttribute("role", "tab");
-          b.setAttribute("aria-label", p.dataset.cat);
-          if (!i) b.className = "on";
-          b.onclick = () => {
-            touched = true;
-            dots.classList.add("stop");
-            activate(i);
-          };
-          dots.appendChild(b);
-          p.addEventListener("mouseenter", () => {
-            if (matchMedia("(hover:hover)").matches) {
-              touched = true;
-              dots.classList.add("stop");
-              activate(i);
-            }
-          });
-          p.addEventListener("click", (e) => {
-            if (e.target.closest(".ed")) return;
-            touched = true;
-            dots.classList.add("stop");
-            activate(i);
-          });
-          p.addEventListener("focus", () => {
-            touched = true;
-            dots.classList.add("stop");
-            activate(i);
-          });
-          p.addEventListener("keydown", (e) => {
-            if (e.key === "ArrowRight") {
-              e.preventDefault();
-              panels[(i + 1) % panels.length].focus();
-            }
-            if (e.key === "ArrowLeft") {
-              e.preventDefault();
-              panels[(i + panels.length - 1) % panels.length].focus();
-            }
-          });
-        });
-        function activate(i) {
-          if (i === active) return;
-          active = i;
-          syncChips();
-          setTimeout(syncPanels, 0);
-          panels.forEach((p, k) => p.classList.toggle("on", k === i));
-          [...dots.children].forEach((d, k) => {
-            d.classList.remove("on");
-            if (k === i) {
-              void d.offsetWidth;
-              d.classList.add("on");
-            }
-          });
-        }
-        const chips = [...document.querySelectorAll("#svcChips button")];
-        function syncChips() {
-          chips.forEach((c, k) =>
-            c.setAttribute("aria-current", k === active ? "true" : "false"),
-          );
-        }
-        syncChips();
-        chips.forEach((c) => {
-          const i = +c.dataset.i;
-          c.addEventListener("click", () => {
-            touched = true;
-            dots.classList.add("stop");
-            activate(i);
-            if (innerWidth < 760)
-              panels[i].scrollIntoView({
-                behavior: reduce ? "auto" : "smooth",
-                block: "center",
-              });
-          });
-          c.addEventListener("mouseenter", () => {
-            if (matchMedia("(hover:hover)").matches) {
-              touched = true;
-              dots.classList.add("stop");
-              activate(i);
-            }
-          });
-        });
-        const pT = panels.map(() => Math.random() * 20);
-        panels.forEach((p, i) =>
-          paint(gHero, p.querySelector("canvas"), {
-            mode: +p.dataset.mode,
-            seed: +p.dataset.seed,
-            t: pT[i],
-          }),
-        );
-        new IntersectionObserver((e) => {
-          heroIn = e[0].isIntersecting;
-          syncPanels();
-        }).observe($("#panels"));
-        setInterval(() => {
-          if (!touched && heroIn && !reduce)
-            activate((active + 1) % panels.length);
-        }, 7000);
-        let lastF = 0,
-          lastBg = 0;
-        const t0 = performance.now();
-        function heroLoop(now) {
-          requestAnimationFrame(heroLoop);
-          if (!heroIn || reduce || now - lastF < 33) return;
-          const dt = (now - lastF) / 1000;
-          lastF = now;
-          const p = panels[active];
-          pT[active] += Math.min(dt, 0.05);
-          if (!has(p.dataset.slot))
-            paint(gHero, p.querySelector("canvas"), {
-              mode: +p.dataset.mode,
-              seed: +p.dataset.seed,
-              t: pT[active],
-            });
-          p.querySelector(".tc").textContent = tc(pT[active]);
-          if (now - lastBg > 1400) {
-            lastBg = now;
-            panels.forEach((q, k) => {
-              if (k !== active && !has(q.dataset.slot)) {
-                pT[k] += 1.4;
-                paint(gHero, q.querySelector("canvas"), {
-                  mode: +q.dataset.mode,
-                  seed: +q.dataset.seed,
-                  t: pT[k],
-                });
-              }
-            });
+        /* ---------- media from Supabase ---------- */
+        let media = {};
+        const has = (s) => !!(media[s] && media[s].path);
+        const src = (s) =>
+          `${C.supabaseUrl}/storage/v1/object/public/${C.bucket || "videos"}/${encodeURI(media[s].path)}`;
+        function mediaEl(
+          slot,
+          {
+            loop = true,
+            muted = true,
+            controls = false,
+            preload = "metadata",
+          } = {},
+        ) {
+          const m = media[slot];
+          let el;
+          if (m.type === "image") {
+            el = document.createElement("img");
+            el.alt = "";
+            el.loading = "lazy";
+            el.src = src(slot);
+          } else {
+            el = document.createElement("video");
+            el.muted = muted;
+            el.loop = loop;
+            el.playsInline = true;
+            el.setAttribute("playsinline", "");
+            el.preload = preload;
+            el.controls = controls;
+            el.src = src(slot) + (controls ? "" : "#t=0.1");
           }
+          el.className = "media";
+          return el;
         }
-        requestAnimationFrame(heroLoop);
-
-        /* nav */
-        $("#menuBtn").onclick = () => {
-          const n = $("#nav");
-          const o = !n.classList.contains("open");
-          n.classList.toggle("open", o);
-          $("#menuBtn").setAttribute("aria-expanded", o);
-        };
-        $$("#menu a").forEach((a) =>
-          a.addEventListener("click", () => {
-            $("#nav").classList.remove("open");
-            $("#menuBtn").setAttribute("aria-expanded", "false");
-          }),
-        );
-        const navLinks = $$("#menu a");
-        const secObs = new IntersectionObserver(
+        function applyBox(box) {
+          const slot = box.dataset.slot;
+          box.querySelectorAll(":scope > .media").forEach((n) => n.remove());
+          const cv = box.querySelector(":scope > canvas");
+          if (!has(slot)) {
+            if (cv) cv.style.visibility = "";
+            return null;
+          }
+          const el = mediaEl(slot, {
+            preload: slot === "reel" ? "auto" : "metadata",
+          });
+          if (cv) {
+            cv.after(el);
+            cv.style.visibility = "hidden";
+          } else box.prepend(el);
+          return el;
+        }
+        /* play videos only while visible */
+        const vio = new IntersectionObserver(
           (es) =>
             es.forEach((e) => {
-              if (e.isIntersecting) {
-                navLinks.forEach((a) =>
-                  a.classList.toggle(
-                    "cur",
-                    a.getAttribute("href") === "#" + e.target.id,
-                  ),
-                );
-              }
+              const v = e.target.querySelector(":scope > video.media");
+              if (!v) return;
+              if (e.isIntersecting && !reduce && !e.target.closest(".case"))
+                v.play().catch(() => {});
+              else v.pause();
             }),
-          { rootMargin: "-45% 0px -50% 0px" },
+          { threshold: 0.25 },
         );
-        [
-          "inicio",
-          "showreel",
-          "portfolio",
-          "servicos",
-          "sobre",
-          "contato",
-        ].forEach((id) => secObs.observe(document.getElementById(id)));
 
-        /* ---------- showreel ---------- */
+        /* ---------- HERO ---------- */
+        const gHero = makeGL(1280, 720);
+        const heroCv = $("#heroCv");
+        const heroBox = $("#heroBox");
         const scenes = [
-          { n: "Eventos", m: 0, s: 3 },
-          { n: "Imobiliário", m: 1, s: 4 },
-          { n: "Terrenos", m: 2, s: 6 },
-          { n: "Rural", m: 3, s: 8 },
-          { n: "Turismo", m: 4, s: 5 },
+          { m: 1, s: 4 },
+          { m: 0, s: 3 },
+          { m: 2, s: 6 },
+          { m: 4, s: 5 },
+          { m: 3, s: 8 },
         ];
-        const SEG = 5;
-        const gReel = makeGL(1440, 602);
-        const reelCv = $("#reelCv");
-        const chap = $("#chap");
-        scenes.forEach((s, i) => {
-          const b = document.createElement("button");
-          b.setAttribute("aria-label", s.n);
-          b.innerHTML = "<i></i>";
-          b.onclick = () => jump(i);
-          chap.appendChild(b);
-        });
-        let rPos = 0,
-          rIdx = -1,
-          reelIn = false,
-          rLast = 0;
-        function setScene(i) {
-          rIdx = i;
-          $("#reelName").textContent = scenes[i].n;
-          [...chap.children].forEach((b, k) => {
-            b.classList.remove("on");
-            if (k === i) {
-              void b.offsetWidth;
-              b.classList.add("on");
-            }
-          });
+        const SEG = 6;
+        let hT = 0,
+          hLast = performance.now(),
+          heroIn = true,
+          heroVideo = false;
+        new IntersectionObserver((e) => (heroIn = e[0].isIntersecting)).observe(
+          heroBox,
+        );
+        function heroFrame(now) {
+          requestAnimationFrame(heroFrame);
+          const dt = Math.min(0.05, (now - hLast) / 1000);
+          if (!heroIn || heroVideo || now - hLast < 33) return;
+          hLast = now;
+          if (!reduce) hT += dt;
+          const i = Math.floor(hT / SEG) % scenes.length,
+            l = hT % SEG,
+            sc = scenes[i];
+          $("#heroFade").classList.toggle("on", !reduce && l > SEG - 0.5);
+          paint(gHero, heroCv, { mode: sc.m, seed: sc.s, t: l + i * 4 });
+          $("#heroTc").textContent = tc(hT);
         }
-        function jump(i) {
-          const f = $("#reelFade");
-          f.classList.add("on");
-          setTimeout(
-            () => {
-              rPos = i * SEG + 0.01;
-              setScene(i);
-              drawReel();
-              f.classList.remove("on");
-            },
-            reduce ? 0 : 420,
-          );
-        }
-        function drawReel() {
-          const i = Math.floor(rPos / SEG) % scenes.length,
-            l = rPos - Math.floor(rPos / SEG) * SEG;
-          const s = scenes[i];
-          paint(gReel, reelCv, { mode: s.m, seed: s.s, t: l + i * 4 });
-          $("#reelTc").textContent = tc(rPos);
-        }
-        setScene(0);
-        drawReel();
-        new IntersectionObserver((e) => {
-          reelIn = e[0].isIntersecting;
-          chap.classList.toggle("paused", !reelIn);
-          const rv = $(".reel-frame > video.media");
-          if (rv) {
-            if (reelIn && !reduce) rv.play().catch(() => {});
-            else rv.pause();
-          }
-        }).observe(reelCv);
-        function reelLoop(now) {
-          requestAnimationFrame(reelLoop);
-          if (!reelIn || reduce || lbOpen || has("reel")) {
-            rLast = now;
-            return;
-          }
-          if (now - rLast < 33) return;
-          const dt = Math.min(0.05, (now - rLast) / 1000);
-          rLast = now;
-          const before = Math.floor(rPos / SEG);
-          rPos += dt;
-          if (rPos >= SEG * scenes.length) rPos = 0;
-          const after = Math.floor(rPos / SEG);
-          if (after !== before) {
-            setScene(after % scenes.length);
-            const f = $("#reelFade");
-            f.classList.add("on");
-            setTimeout(() => f.classList.remove("on"), 380);
-          } else if (rPos - before * SEG > SEG - 0.45) {
-            $("#reelFade").classList.add("on");
-          }
-          drawReel();
-        }
-        requestAnimationFrame(reelLoop);
+        paint(gHero, heroCv, { mode: 1, seed: 4, t: 0 });
+        requestAnimationFrame(heroFrame);
 
-        /* ambient score built in the browser */
-        let actx = null,
-          master = null;
-        const snd = $("#snd");
-        function buildAudio() {
-          actx = new (window.AudioContext || window.webkitAudioContext)();
-          master = actx.createGain();
-          master.gain.value = 0;
-          const verb = actx.createConvolver();
-          const len = actx.sampleRate * 3.5;
-          const ir = actx.createBuffer(2, len, actx.sampleRate);
-          for (let c = 0; c < 2; c++) {
-            const d = ir.getChannelData(c);
-            for (let i = 0; i < len; i++)
-              d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.6);
-          }
-          verb.buffer = ir;
-          const wet = actx.createGain();
-          wet.gain.value = 0.7;
-          master.connect(actx.destination);
-          verb.connect(wet);
-          wet.connect(master);
-          const dry = actx.createGain();
-          dry.gain.value = 0.5;
-          dry.connect(master);
-          const lp = actx.createBiquadFilter();
-          lp.type = "lowpass";
-          lp.frequency.value = 1400;
-          lp.connect(dry);
-          lp.connect(verb);
-          const chords = [
-            [146.83, 220, 277.18, 329.63],
-            [123.47, 185, 246.94, 293.66],
-            [110, 164.81, 220, 277.18],
-            [130.81, 196, 246.94, 329.63],
-          ];
-          const voices = chords[0].map((f) => {
-            const o = actx.createOscillator();
-            o.type = "triangle";
-            o.frequency.value = f;
-            const o2 = actx.createOscillator();
-            o2.type = "sine";
-            o2.frequency.value = f * 2.003;
-            const g = actx.createGain();
-            g.gain.value = 0.05;
-            o.connect(g);
-            o2.connect(g);
-            g.connect(lp);
-            o.start();
-            o2.start();
-            return [o, o2];
-          });
-          let ci = 0;
-          setInterval(() => {
-            ci = (ci + 1) % chords.length;
-            voices.forEach((v, k) => {
-              v[0].frequency.setTargetAtTime(
-                chords[ci][k],
-                actx.currentTime,
-                0.8,
-              );
-              v[1].frequency.setTargetAtTime(
-                chords[ci][k] * 2.003,
-                actx.currentTime,
-                0.8,
-              );
-            });
-          }, 5000);
-          const nb = actx.createBuffer(1, actx.sampleRate * 2, actx.sampleRate);
-          const nd = nb.getChannelData(0);
-          for (let i = 0; i < nd.length; i++) nd[i] = Math.random() * 2 - 1;
-          const n = actx.createBufferSource();
-          n.buffer = nb;
-          n.loop = true;
-          const bp = actx.createBiquadFilter();
-          bp.type = "bandpass";
-          bp.frequency.value = 600;
-          bp.Q.value = 0.6;
-          const ng = actx.createGain();
-          ng.gain.value = 0.03;
-          const lfo = actx.createOscillator();
-          lfo.frequency.value = 0.08;
-          const lg = actx.createGain();
-          lg.gain.value = 400;
-          lfo.connect(lg);
-          lg.connect(bp.frequency);
-          lfo.start();
-          n.connect(bp);
-          bp.connect(ng);
-          ng.connect(verb);
-          n.start();
-        }
-        snd.onclick = () => {
-          const on = snd.getAttribute("aria-pressed") !== "true";
-          const rv = $(".reel-frame > video.media");
-          if (rv) {
-            rv.muted = !on;
-            if (on) rv.play().catch(() => {});
-            snd.setAttribute("aria-pressed", on);
-            $("#sndTxt").textContent = on ? "Som ligado" : "Ativar som";
-            return;
-          }
-          try {
-            if (on && !actx) buildAudio();
-            if (actx) {
-              if (on) actx.resume();
-              master.gain.setTargetAtTime(on ? 0.8 : 0, actx.currentTime, 0.6);
-            }
-          } catch (e) {}
-          snd.setAttribute("aria-pressed", on);
-          $("#sndTxt").textContent = on ? "Som ligado" : "Ativar som";
-        };
-
-        /* ---------- portfolio ---------- */
-        const gThumb = makeGL(900, 560);
-        const works = $$(".work");
-        works.forEach((w, i) => {
-          w.dataset.slot = "w" + (i + 1);
-          const cv = w.querySelector("canvas"),
-            o = { mode: +w.dataset.mode, seed: +w.dataset.seed, t: 3 };
-          paint(gThumb, cv, o);
+        /* ---------- SERVICES media ---------- */
+        const gThumb = makeGL(960, 720);
+        $$(".svc-media").forEach((box) => {
+          const cv = box.querySelector("canvas"),
+            o = { mode: +box.dataset.mode, seed: +box.dataset.seed };
+          paint(gThumb, cv, { ...o, t: 3 });
           let on = false,
             st = 0;
           const loop = (now) => {
-            if (!on) return;
+            if (!on || has(box.dataset.slot)) return;
             paint(gThumb, cv, { ...o, t: 3 + (now - st) / 1000 });
             requestAnimationFrame(loop);
           };
-          w.addEventListener("pointerenter", () => {
-            const v = w.querySelector(":scope > video.media");
-            if (v) {
-              if (!reduce) v.play().catch(() => {});
-              return;
-            }
+          box.closest(".svc").addEventListener("pointerenter", () => {
             if (reduce || on) return;
             on = true;
             st = performance.now();
             requestAnimationFrame(loop);
           });
-          w.addEventListener("pointerleave", () => {
-            on = false;
-            const v = w.querySelector(":scope > video.media");
-            if (v) v.pause();
-          });
-          w.addEventListener("click", (e) => {
-            if (e.target.closest(".ed")) return;
-            openLb(w);
-          });
-          w.addEventListener("keydown", (e) => {
-            if (e.target !== w) return;
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              openLb(w);
-            }
-          });
+          box
+            .closest(".svc")
+            .addEventListener("pointerleave", () => (on = false));
+          vio.observe(box);
         });
-        const ROWS = [
-          [7, 5],
-          [4, 4, 4],
-          [5, 7],
-        ];
-        function layout() {
-          const vis = works.filter((w) => !w.hidden);
-          let i = 0,
-            r = 0;
-          while (i < vis.length) {
-            let pat = ROWS[r % ROWS.length];
-            const left = vis.length - i;
-            if (left < pat.length) pat = Array(left).fill(12 / left);
-            pat.forEach((s) => {
-              if (vis[i]) vis[i].style.gridColumn = `span ${s}`;
-              i++;
-            });
-            r++;
-          }
-        }
-        let curF = "Todos";
-        function filter(f) {
-          curF = f;
-          $$("#filters button").forEach((b) =>
-            b.setAttribute("aria-pressed", b.dataset.f === f),
-          );
-          works.forEach(
-            (w) => (w.hidden = !(f === "Todos" || w.dataset.cat === f)),
-          );
-          layout();
-        }
-        $$("#filters button").forEach(
-          (b) => (b.onclick = () => filter(b.dataset.f)),
-        );
-        $$("[data-filter]").forEach((a) =>
-          a.addEventListener("click", () => filter(a.dataset.filter)),
-        );
-        layout();
 
-        /* lightbox */
+        /* ---------- CASES ---------- */
+        const DEF = [
+          {
+            t: "Festival ao pôr do sol",
+            c: "Eventos",
+            d: "02:40",
+            s: "Aftermovie de festival com tomadas aéreas do público e do palco no fim de tarde.",
+            m: 0,
+            seed: 3,
+          },
+          {
+            t: "Torre residencial, hora azul",
+            c: "Imobiliário",
+            d: "01:30",
+            s: "Filme de lançamento mostrando a vista, o bairro e a fachada iluminada.",
+            m: 1,
+            seed: 4,
+          },
+          {
+            t: "Loteamento em encosta",
+            c: "Terrenos",
+            d: "01:10",
+            s: "Apresentação de loteamento com acessos, relevo e divisas dos lotes.",
+            m: 2,
+            seed: 6,
+          },
+          {
+            t: "Casamento no campo",
+            c: "Eventos",
+            d: "04:20",
+            s: "Filme de casamento com cerimônia ao ar livre e chegada dos noivos vista do alto.",
+            m: 0,
+            seed: 21,
+          },
+          {
+            t: "Pousada pé na areia",
+            c: "Turismo",
+            d: "01:00",
+            s: "Vídeo institucional para reservas, com praia, estrutura e entorno.",
+            m: 4,
+            seed: 5,
+          },
+          {
+            t: "Fazenda com pivôs",
+            c: "Rural",
+            d: "02:00",
+            s: "Vídeo de venda de propriedade rural com áreas de plantio e infraestrutura.",
+            m: 3,
+            seed: 8,
+          },
+          {
+            t: "Condomínio fechado",
+            c: "Imobiliário",
+            d: "01:45",
+            s: "Tour aéreo por áreas comuns, lazer e vizinhança do condomínio.",
+            m: 1,
+            seed: 12,
+          },
+          {
+            t: "Gleba à venda",
+            c: "Terrenos",
+            d: "00:50",
+            s: "Vídeo curto para anúncio de área, com localização e acesso pela rodovia.",
+            m: 2,
+            seed: 17,
+          },
+        ];
+        const casesEl = $("#cases");
+        let curF = "Todos";
+        function caseData(i) {
+          const d = DEF[i],
+            m = media["w" + (i + 1)] || {};
+          return {
+            slot: "w" + (i + 1),
+            title: m.title || d.t,
+            cat: m.cat || d.c,
+            dur: m.dur || d.d,
+            summary: m.summary || d.s,
+            link: m.link || "",
+            mode: d.m,
+            seed: d.seed,
+          };
+        }
+        function renderCases() {
+          casesEl.replaceChildren();
+          DEF.forEach((_, i) => {
+            const d = caseData(i);
+            const b = document.createElement("button");
+            b.type = "button";
+            b.className = "case";
+            b.dataset.cat = d.cat;
+            b.hidden = !(curF === "Todos" || curF === d.cat);
+            const box = document.createElement("div");
+            box.className = "media-box grain";
+            box.dataset.slot = d.slot;
+            const cv = document.createElement("canvas");
+            cv.width = 960;
+            cv.height = 600;
+            box.append(cv);
+            const play = document.createElement("span");
+            play.className = "play";
+            play.setAttribute("aria-hidden", "true");
+            play.textContent = "▶";
+            const dur = document.createElement("span");
+            dur.className = "dur mono";
+            dur.textContent = d.dur;
+            box.append(play, dur);
+            const meta = document.createElement("div");
+            meta.className = "case-meta";
+            const cat = document.createElement("span");
+            cat.className = "cat";
+            cat.textContent = d.cat;
+            const h = document.createElement("h3");
+            h.textContent = d.title;
+            const p = document.createElement("p");
+            p.textContent = d.summary;
+            meta.append(cat, h, p);
+            b.append(box, meta);
+            casesEl.append(b);
+            paint(gThumb, cv, { mode: d.mode, seed: d.seed, t: 3 });
+            applyBox(box);
+            let on = false,
+              st = 0;
+            const loop = (now) => {
+              if (!on) return;
+              paint(gThumb, cv, {
+                mode: d.mode,
+                seed: d.seed,
+                t: 3 + (now - st) / 1000,
+              });
+              requestAnimationFrame(loop);
+            };
+            b.addEventListener("pointerenter", () => {
+              const v = box.querySelector("video.media");
+              if (v) {
+                if (!reduce) v.play().catch(() => {});
+                return;
+              }
+              if (reduce || on) return;
+              on = true;
+              st = performance.now();
+              requestAnimationFrame(loop);
+            });
+            b.addEventListener("pointerleave", () => {
+              on = false;
+              const v = box.querySelector("video.media");
+              if (v) v.pause();
+            });
+            b.addEventListener("click", () => openLb(d, b));
+          });
+        }
+        $$("#filters button").forEach((btn) =>
+          btn.addEventListener("click", () => {
+            curF = btn.dataset.f;
+            $$("#filters button").forEach((x) =>
+              x.setAttribute("aria-pressed", x === btn),
+            );
+            $$(".case").forEach(
+              (c) => (c.hidden = !(curF === "Todos" || c.dataset.cat === curF)),
+            );
+          }),
+        );
+        renderCases();
+
+        /* ---------- LIGHTBOX ---------- */
         const lb = $("#lb"),
-          lbCv = $("#lbCv");
+          lbCv = $("#lbCv"),
+          lbFrame = $("#lbFrame");
         let gLb = null,
           lbOpen = false,
-          lbWork = null,
-          lbFocus = null;
-        function openLb(w) {
-          gLb = gLb || makeGL(1280, 720);
-          lbWork = w;
-          lbFocus = w;
+          lbBack = null;
+        function openLb(d, from) {
+          lbBack = from;
           lbOpen = true;
-          $("#lbTitle").textContent = w.querySelector("h3").textContent;
-          $("#lbCat").textContent = w.dataset.cat;
-          $("#lbDesc").textContent = w.dataset.desc;
+          gLb = gLb || makeGL(1280, 720);
+          $("#lbCat").textContent = d.cat;
+          $("#lbTitle").textContent = d.title;
+          $("#lbDesc").textContent = d.summary || "";
+          const lk = $("#lbLink");
+          lk.hidden = !d.link;
+          if (d.link) lk.href = d.link;
+          $("#lbWa").href = waUrl(
+            `Olá, Visual Norte! Vi o trabalho "${d.title}" no site e quero um vídeo parecido.`,
+          );
+          lbFrame.querySelectorAll(".media").forEach((n) => n.remove());
+          lbCv.style.visibility = "";
           lb.hidden = false;
           requestAnimationFrame(() => lb.classList.add("show"));
+          document.body.style.overflow = "hidden";
           $("#lbClose").focus();
-          const fr = $(".lb-frame");
-          fr.querySelectorAll(".media").forEach((n) => n.remove());
-          lbCv.style.visibility = "";
-          const sl = w.dataset.slot,
-            m = media.slots[sl] || {},
-            lk = $("#lbLink");
-          lk.hidden = !m.link;
-          if (m.link) lk.href = m.link;
-          if (has(sl)) {
-            const el = document.createElement(
-              m.type === "image" ? "img" : "video",
-            );
-            el.className = "media";
-            el.src = src(sl);
-            if (m.type === "image") {
-              el.alt = w.querySelector("h3").textContent;
-            } else {
-              el.controls = true;
-              el.playsInline = true;
-              el.autoplay = true;
-            }
-            fr.appendChild(el);
+          if (has(d.slot)) {
+            const el = mediaEl(d.slot, {
+              loop: false,
+              muted: false,
+              controls: true,
+              preload: "auto",
+            });
+            lbFrame.append(el);
             lbCv.style.visibility = "hidden";
+            if (el.play) el.play().catch(() => {});
             return;
           }
-          const o = { mode: +w.dataset.mode, seed: +w.dataset.seed };
           const st = performance.now();
           const loop = (now) => {
             if (!lbOpen) return;
-            paint(gLb, lbCv, { ...o, t: 3 + (reduce ? 0 : (now - st) / 1000) });
+            paint(gLb, lbCv, {
+              mode: d.mode,
+              seed: d.seed,
+              t: 3 + (reduce ? 0 : (now - st) / 1000),
+            });
             if (!reduce) requestAnimationFrame(loop);
           };
           requestAnimationFrame(loop);
         }
         function closeLb() {
           lbOpen = false;
-          $$(".lb-frame .media").forEach((n) => n.remove());
           lb.classList.remove("show");
-          setTimeout(() => (lb.hidden = true), reduce ? 0 : 400);
-          if (lbFocus) lbFocus.focus();
+          document.body.style.overflow = "";
+          lbFrame.querySelectorAll(".media").forEach((n) => {
+            if (n.pause) n.pause();
+            n.remove();
+          });
+          setTimeout(() => (lb.hidden = true), reduce ? 0 : 350);
+          if (lbBack) lbBack.focus();
         }
-        $("#lbClose").onclick = closeLb;
+        $("#lbClose").addEventListener("click", closeLb);
         lb.addEventListener("click", (e) => {
           if (e.target === lb) closeLb();
         });
-        addEventListener("keydown", (e) => {
-          if (e.key === "Escape" && lbOpen) closeLb();
-        });
-        $("#lbCta").onclick = () => {
-          const cat = lbWork.dataset.cat;
-          closeLb();
-          const map = {
-            Eventos: "Evento",
-            Imobiliário: "Imobiliário",
-            Terrenos: "Terreno ou loteamento",
-            Rural: "Rural",
-            Turismo: "Turismo",
-          };
-          $("#tipo").value = map[cat] || "Outro";
-          $("#msg").value =
-            `Vi o projeto "${lbWork.querySelector("h3").textContent}" e quero algo parecido.`;
-          $("#contato").scrollIntoView({
-            behavior: reduce ? "auto" : "smooth",
-          });
-        };
-
-        /* ---------- services cursor preview ---------- */
-        const peek = $("#peek"),
-          peekCv = peek.querySelector("canvas");
-        let pOn = null,
-          px = 0,
-          py = 0,
-          cx = 0,
-          cy = 0,
-          pst = 0;
-        const pv = peek.querySelector("video");
-        $$(".svc").forEach((s, si) => {
-          s.addEventListener("pointerenter", (e) => {
-            if (e.pointerType !== "mouse") return;
-            const ps = panels[si] && panels[si].dataset.slot;
-            if (ps && has(ps) && media.slots[ps].type !== "image") {
-              pv.src = src(ps);
-              pv.hidden = false;
-              pv.play().catch(() => {});
-            } else {
-              pv.hidden = true;
-              pv.removeAttribute("src");
-            }
-            pOn = { mode: +s.dataset.mode, seed: +s.dataset.seed };
-            pst = performance.now();
-            cx = px = e.clientX;
-            cy = py = e.clientY;
-            peek.classList.add("on");
-          });
-          s.addEventListener("pointerleave", () => {
-            pOn = null;
-            peek.classList.remove("on");
-            pv.pause();
-          });
-        });
-        addEventListener(
-          "pointermove",
-          (e) => {
-            px = e.clientX;
-            py = e.clientY;
-          },
-          { passive: true },
+        $("#watchReel").addEventListener("click", (e) =>
+          openLb(
+            {
+              slot: "reel",
+              title: "Showreel Visual Norte",
+              cat: "Showreel",
+              summary:
+                "Uma amostra dos nossos voos: eventos, imóveis, terrenos, campo e turismo.",
+              link: (media.reel && media.reel.link) || "",
+              mode: 1,
+              seed: 4,
+            },
+            e.currentTarget,
+          ),
         );
-        function peekLoop(now) {
-          requestAnimationFrame(peekLoop);
-          if (!pOn) return;
-          cx += (px + 170 - cx) * 0.14;
-          cy += (py - cy) * 0.14;
-          peek.style.left = Math.min(cx, innerWidth - 140) + "px";
-          peek.style.top = cy + "px";
-          if (gThumb) {
-            gThumb.draw({ ...pOn, t: 3 + (reduce ? 0 : (now - pst) / 1000) });
-            const sw = 448,
-              sh = 560;
-            peekCv
-              .getContext("2d")
-              .drawImage(gThumb.cv, (900 - sw) / 2, 0, sw, sh, 0, 0, 400, 500);
-          }
-        }
-        requestAnimationFrame(peekLoop);
 
-        /* ---------- contact ---------- */
-        async function copy(txt, btn) {
-          const o = btn.textContent;
-          try {
-            await navigator.clipboard.writeText(txt);
-            btn.textContent = "Copiado";
-          } catch (e) {
-            btn.textContent = "Selecione e copie";
-          }
-          setTimeout(() => (btn.textContent = o), 1800);
-        }
-        $("#copyMail").onclick = function () {
-          copy($("#mail").textContent, this);
-        };
-        $("#form").addEventListener("submit", (e) => {
-          e.preventDefault();
-          const f = e.target;
-          const nome = f.nome.value.trim(),
-            ct = f.contato.value.trim();
-          if (!nome) {
-            f.nome.focus();
-            f.nome.placeholder = "Precisamos do seu nome";
-            return;
-          }
-          if (!ct) {
-            f.contato.focus();
-            f.contato.placeholder = "Precisamos de um contato";
-            return;
-          }
-          const dt = f.data.value
-            ? f.data.value.split("-").reverse().join("/")
-            : "a definir";
-          const txt = `Olá, Visual Norte!\nNome: ${nome}\nContato: ${ct}\nVídeo: ${f.tipo.value}\nData: ${dt}\n\n${f.msg.value.trim() || "Gostaria de um orçamento."}`;
-          $("#doneTxt").textContent = txt;
-          $("#done").hidden = false;
-          $("#copyReq").onclick = function () {
-            copy(txt, this);
-          };
-        });
-
-        /* ---------- real videos from Supabase ---------- */
-        function slotHost(slot) {
-          if (slot === "reel") return $(".reel-frame");
-          return (
-            panels.find((p) => p.dataset.slot === slot) ||
-            works.find((w) => w.dataset.slot === slot) ||
-            null
-          );
-        }
-        function allSlots() {
-          return [
-            "reel",
-            ...panels.map((p) => p.dataset.slot),
-            ...works.map((w) => w.dataset.slot),
-          ];
-        }
-        function applySlot(slot) {
-          const host = slotHost(slot);
-          if (!host) return;
-          host.querySelectorAll(":scope > .media").forEach((n) => n.remove());
-          const cv = host.querySelector(":scope > canvas");
-          const isReel = slot === "reel";
-          if (!has(slot)) {
-            if (cv) cv.style.visibility = "";
-            if (isReel) {
-              $(".reel-title").hidden = false;
-              chap.hidden = false;
-            }
-            return;
-          }
-          const m = media.slots[slot];
-          let el;
-          if (m.type === "image") {
-            el = document.createElement("img");
-            el.alt = "";
-            el.src = src(slot);
-          } else {
-            el = document.createElement("video");
-            el.muted = true;
-            el.loop = true;
-            el.playsInline = true;
-            el.setAttribute("playsinline", "");
-            el.preload = isReel ? "auto" : "metadata";
-            el.src = src(slot) + "#t=0.1";
-          }
-          el.className = "media";
-          if (cv) {
-            cv.after(el);
-            cv.style.visibility = "hidden";
-          } else host.prepend(el);
-          if (isReel) {
-            $(".reel-title").hidden = true;
-            chap.hidden = true;
-            if (el.play && reelIn && !reduce) el.play().catch(() => {});
-          }
-        }
-        function syncPanels() {
-          panels.forEach((p, k) => {
-            const v = p.querySelector(":scope > video.media");
-            if (!v) return;
-            if (k === active && heroIn && !reduce) v.play().catch(() => {});
-            else v.pause();
-          });
-        }
-        const CATS = ["Eventos", "Imobiliário", "Terrenos", "Rural", "Turismo"];
-        function applyTexts() {
-          works.forEach((w) => {
-            const m = media.slots[w.dataset.slot];
-            if (!m) return;
-            if (m.title) w.querySelector("h3").textContent = m.title;
-            if (m.cat && CATS.includes(m.cat)) {
-              w.dataset.cat = m.cat;
-              w.querySelector(".cat").textContent = m.cat;
-            }
-            if (m.dur) {
-              w.querySelector(".dur").textContent = m.dur;
-              w.dataset.desc = w.dataset.cat + " · " + m.dur;
-            }
-          });
-        }
+        /* ---------- load from Supabase ---------- */
         async function loadMedia() {
           if (
             !C.supabaseUrl ||
@@ -2988,28 +2645,66 @@ void main(){vec2 uv=(gl_FragCoord.xy-.5*r)/r.y;vec3 c;
             );
             if (!r.ok) return;
             const rows = await r.json();
-            const slots = {};
+            const out = {};
             rows.forEach((x) => {
-              slots[x.slot] = {
+              out[x.slot] = {
                 path: x.path,
                 type: x.kind || "video",
-                name: x.file_name,
                 link: x.link,
                 title: x.title,
                 cat: x.category,
                 dur: x.duration,
+                summary: x.summary,
               };
             });
-            media = { slots };
+            media = out;
           } catch (e) {
             return;
           }
-          applyTexts();
-          allSlots().forEach(applySlot);
-          syncPanels();
-          filter(curF);
+          const hv = applyBox(heroBox);
+          if (hv && hv.tagName === "VIDEO") {
+            heroVideo = true;
+            $("#heroFade").classList.remove("on");
+            if (!reduce) hv.play().catch(() => {});
+            vio.observe(heroBox);
+          } else if (hv) {
+            heroVideo = true;
+          }
+          $$(".svc-media").forEach(applyBox);
+          renderCases();
         }
         loadMedia();
+
+        /* ---------- form -> WhatsApp ---------- */
+        $("#form").addEventListener("submit", (e) => {
+          e.preventDefault();
+          const f = e.target,
+            msgEl = $("#formMsg");
+          const nome = f.nome.value.trim();
+          if (!nome) {
+            f.nome.focus();
+            msgEl.textContent = "Escreva o seu nome para continuar.";
+            return;
+          }
+          const dt = f.data.value
+            ? f.data.value.split("-").reverse().join("/")
+            : "a definir";
+          const txt = [
+            `Olá, Visual Norte! Sou ${nome}${f.empresa.value.trim() ? " (" + f.empresa.value.trim() + ")" : ""}.`,
+            `Quero um orçamento de vídeo com drone.`,
+            `Tipo: ${f.tipo.value}`,
+            `Local: ${f.local.value.trim() || "a definir"}`,
+            `Data: ${dt}`,
+            f.msg.value.trim() ? `\n${f.msg.value.trim()}` : "",
+          ].join("\n");
+          if (!WA) {
+            msgEl.textContent =
+              "O número de WhatsApp ainda não foi configurado no site.";
+            return;
+          }
+          msgEl.textContent = "Abrindo o WhatsApp…";
+          window.open(waUrl(txt), "_blank", "noopener");
+        });
       })();
     </script>
   </body>

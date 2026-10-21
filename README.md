@@ -33,6 +33,12 @@ robots.txt          impede o Google de indexar /admin
 ### 3. Configurar o site
 Em **Project Settings > API** (ou **API Keys**), copie a *Project URL* e a chave *anon/publishable* para o `config.js`.
 
+No mesmo `config.js`, preencha:
+- `whatsapp`: DDI + DDD + número, só dígitos (ex.: `5511987654321`). Todos os botões "Pedir orçamento", o botão flutuante e o formulário usam esse número.
+- `instagram` (opcional, sem @), `email` e `region`.
+
+**Atualizando da versão anterior?** Rode `supabase/migracao-v2.sql` uma vez no SQL Editor (adiciona a descrição dos projetos).
+
 ### 4. Publicar
 Qualquer hospedagem estática funciona: Vercel, Netlify ou Cloudflare Pages. Envie a pasta inteira (ou conecte um repositório Git), sem comando de build. Depois aponte o seu domínio.
 
@@ -40,9 +46,9 @@ Teste local: `npx serve .` dentro da pasta e abra `http://localhost:3000` e `htt
 
 ### 5. Usar o painel
 Abra `seudominio.com.br/admin/`, entre e envie os vídeos:
-- **Showreel**: vídeo principal, toca com som quando o visitante ativa.
-- **Painéis** (5): loops curtos e sem som.
-- **Projetos** (8): vídeo de prévia + título, categoria, duração e link do vídeo completo (YouTube/Vimeo).
+- **Vídeo do topo / showreel**: fundo da primeira tela (sem som). O botão "Assistir ao showreel" abre o mesmo vídeo com som.
+- **Serviços** (5): vídeo ao lado de cada serviço, em loop e sem som.
+- **Portfólio** (8): vídeo de prévia + título, categoria, duração, descrição curta e link do vídeo completo (YouTube/Vimeo).
 
 Tudo o que você salva aparece no site na próxima vez que a página for aberta.
 

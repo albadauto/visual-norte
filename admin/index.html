@@ -151,7 +151,8 @@
         min-width: 0;
       }
       input,
-      select {
+      select,
+      textarea {
         background: transparent;
         border: 0;
         border-bottom: 1px solid rgba(243, 244, 248, 0.28);
@@ -161,8 +162,14 @@
         border-radius: 0;
         font-size: 15px;
       }
+      textarea {
+        resize: vertical;
+        font-size: 14px;
+        line-height: 1.45;
+      }
       input:focus,
-      select:focus {
+      select:focus,
+      textarea:focus {
         outline: none;
         border-bottom-color: var(--ink);
       }
@@ -394,21 +401,28 @@
       </div>
       <section>
         <h2>
-          Showreel <small>faixa de cinema no meio do site, toca com som</small>
+          Vídeo do topo
+          <small
+            >fundo da primeira tela (sem som) e showreel com som no botão
+            "Assistir"</small
+          >
         </h2>
         <div class="grid" id="gReel"></div>
       </section>
       <section>
         <h2>
-          Painéis da abertura
-          <small>loop sem som; o painel aberto fica colorido</small>
+          Serviços
+          <small>vídeo ao lado de cada serviço, em loop e sem som</small>
         </h2>
         <div class="grid" id="gPanels"></div>
       </section>
       <section>
         <h2>
-          Projetos do portfólio
-          <small>toca ao passar o mouse; abre em tela cheia ao clicar</small>
+          Portfólio
+          <small
+            >prévia toca ao passar o mouse; abre em tela cheia com som ao
+            clicar</small
+          >
         </h2>
         <div class="grid" id="gWorks"></div>
       </section>
@@ -432,12 +446,22 @@
         const BUCKET = C.bucket || "videos";
         const $ = (s) => document.querySelector(s);
         const CATS = ["Eventos", "Imobiliário", "Terrenos", "Rural", "Turismo"];
+        const SUM = [
+          "Aftermovie de festival com tomadas aéreas do público e do palco no fim de tarde.",
+          "Filme de lançamento mostrando a vista, o bairro e a fachada iluminada.",
+          "Apresentação de loteamento com acessos, relevo e divisas dos lotes.",
+          "Filme de casamento com cerimônia ao ar livre e chegada dos noivos vista do alto.",
+          "Vídeo institucional para reservas, com praia, estrutura e entorno.",
+          "Vídeo de venda de propriedade rural com áreas de plantio e infraestrutura.",
+          "Tour aéreo por áreas comuns, lazer e vizinhança do condomínio.",
+          "Vídeo curto para anúncio de área, com localização e acesso pela rodovia.",
+        ];
         const SLOTS = [
-          { slot: "reel", group: "gReel", label: "Showreel" },
+          { slot: "reel", group: "gReel", label: "Vídeo do topo / showreel" },
           ...CATS.map((c) => ({
             slot: "p-" + c,
             group: "gPanels",
-            label: "Painel · " + c,
+            label: "Serviço · " + c,
           })),
           ...[
             ["Festival ao pôr do sol", "Eventos", "02:40"],
@@ -453,7 +477,12 @@
             group: "gWorks",
             label: "Projeto " + (i + 1),
             work: true,
-            def: { title: d[0], category: d[1], duration: d[2] },
+            def: {
+              title: d[0],
+              category: d[1],
+              duration: d[2],
+              summary: SUM[i],
+            },
           })),
         ];
         const MAX = 50 * 1024 * 1024;
@@ -718,6 +747,11 @@
               value: v("link"),
               placeholder: "https://youtube.com/…",
             });
+            const summary = el("textarea", {
+              id: s.slot + "-summary",
+              value: v("summary") || s.def.summary || "",
+              rows: 3,
+            });
             const f = (lab, inp) =>
               el("div", { className: "f" }, [
                 el("label", { className: "lbl", htmlFor: inp.id, text: lab }),
@@ -735,6 +769,7 @@
                 f("Categoria", cat),
                 f("Duração", dur),
               ]),
+              f("Descrição curta", summary),
               f("Link do vídeo completo", link),
               saveBtn,
             );
@@ -751,6 +786,7 @@
                   title: title.value.trim() || null,
                   category: cat.value,
                   duration: dur.value.trim() || null,
+                  summary: summary.value.trim() || null,
                   link: L || null,
                 });
                 setMsg("Textos publicados.", "ok");
@@ -778,6 +814,8 @@
             return "Arquivo grande demais para o limite do Supabase (50 MB).";
           if (/mime|type/i.test(m))
             return "Formato não aceito. Use MP4, WebM, MOV, JPG, PNG ou WebP.";
+          if (/summary/i.test(m) && /column|schema/i.test(m))
+            return "Falta atualizar o banco: rode o arquivo supabase/migracao-v2.sql no SQL Editor.";
           if (/row-level|security|policy|unauthorized|403/i.test(m))
             return "Sem permissão. Confira se a sua conta está na tabela admins.";
           return "Não foi possível concluir: " + m;
