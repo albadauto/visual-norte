@@ -448,6 +448,9 @@
       (() => {
         const C = window.VN_CONFIG || {};
         const BUCKET = C.bucket || "videos";
+        // Storage do Supabase não aceita acentos no caminho (ex.: "p-Imobiliário")
+        const safeKey = (k) =>
+          k.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z0-9_-]/g, "-");
         const $ = (s) => document.querySelector(s);
         const CATS = ["Eventos", "Imobiliário", "Terrenos", "Rural", "Turismo"];
         const SUM = [
@@ -680,7 +683,7 @@
               const ext = (f.name.match(/\.[a-z0-9]+$/i) || [
                 ".mp4",
               ])[0].toLowerCase();
-              const path = `${s.slot}/${Date.now()}${ext}`;
+              const path = `${safeKey(s.slot)}/${Date.now()}${ext}`;
               const type =
                 f.type ||
                 { ".webm": "video/webm", ".mov": "video/quicktime" }[ext] ||

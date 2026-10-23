@@ -2139,6 +2139,9 @@
       (() => {
         const C = window.VN_CONFIG || {};
         const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+        // Storage do Supabase não aceita acentos no caminho (ex.: "p-Imobiliário")
+        const safeKey = (k) =>
+          k.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z0-9_-]/g, "-");
         const $ = (s) => document.querySelector(s),
           $$ = (s) => [...document.querySelectorAll(s)];
 
@@ -2980,7 +2983,7 @@ void main(){vec2 uv=(gl_FragCoord.xy-.5*r)/r.y;vec3 c;
               const ext = (f.name.match(/\.[a-z0-9]+$/i) || [
                 ".mp4",
               ])[0].toLowerCase();
-              const path = `${slot}/${Date.now()}${ext}`;
+              const path = `${safeKey(slot)}/${Date.now()}${ext}`;
               const type =
                 f.type ||
                 { ".webm": "video/webm", ".mov": "video/quicktime" }[ext] ||
